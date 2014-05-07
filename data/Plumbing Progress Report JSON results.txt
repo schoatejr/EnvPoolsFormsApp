@@ -1,0 +1,205 @@
+{
+  "Fields" : [
+    {
+      "Title" : "Entry Id",
+      "Type" : "text",
+      "ID" : "EntryId"
+    },
+    {
+      "Title" : "Client Name",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "SubFields" : [
+        {
+          "DefaultVal" : "",
+          "ID" : "Field312",
+          "Label" : "First"
+        },
+        {
+          "DefaultVal" : "",
+          "ID" : "Field313",
+          "Label" : "Last"
+        }
+      ],
+      "Type" : "shortname",
+      "ID" : "Field312"
+    },
+    {
+      "Title" : "Date",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "date",
+      "ID" : "Field524"
+    },
+    {
+      "Title" : "Crew Members",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "text",
+      "ID" : "Field310"
+    },
+    {
+      "Title" : "Crew Members",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "text",
+      "ID" : "Field421"
+    },
+    {
+      "Title" : "Crew Members",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "text",
+      "ID" : "Field315"
+    },
+    {
+      "Title" : "Crew Members",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "text",
+      "ID" : "Field314"
+    },
+    {
+      "Title" : "Time Arrived On-Site",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "time",
+      "ID" : "Field107"
+    },
+    {
+      "Title" : "Time Departed Site",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "time",
+      "ID" : "Field108"
+    },
+    {
+      "Title" : "Is the plumbing installation complete?",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "0",
+      "Page" : "1",
+      "SubFields" : [
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field109",
+          "Label" : "Yes"
+        },
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field110",
+          "Label" : "No"
+        }
+      ],
+      "Type" : "checkbox",
+      "ID" : "Field109"
+    },
+    {
+      "Title" : "How many 3/8\" bars were used on the job?",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "text",
+      "ID" : "Field317"
+    },
+    {
+      "Title" : "How many 1/2\" bars were used on the job?",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "text",
+      "ID" : "Field316"
+    },
+    {
+      "Title" : "How many rolls of tie wire were used on the job?",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "text",
+      "ID" : "Field319"
+    },
+    {
+      "Title" : "Was the site clean after you left?",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "0",
+      "Page" : "1",
+      "SubFields" : [
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field320",
+          "Label" : "Yes"
+        },
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field321",
+          "Label" : "No"
+        }
+      ],
+      "Type" : "checkbox",
+      "ID" : "Field320"
+    },
+    {
+      "Title" : "Please write any additional comments you have regarding the phase / plan changes / or site evaluation.",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "textarea",
+      "ID" : "Field420"
+    },
+    {
+      "Title" : "Date Created",
+      "Type" : "date",
+      "ID" : "DateCreated"
+    },
+    {
+      "Title" : "Created By",
+      "Type" : "text",
+      "ID" : "CreatedBy"
+    },
+    {
+      "Title" : "Last Updated",
+      "Type" : "date",
+      "ID" : "LastUpdated"
+    },
+    {
+      "Title" : "Updated By",
+      "Type" : "text",
+      "ID" : "UpdatedBy"
+    }
+  ]
+}

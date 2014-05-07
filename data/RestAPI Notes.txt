@@ -1,0 +1,15 @@
+Wufoo.com
+
+
+Environmental Pools Webservice Key :
+JTFE-F57Z-YBHR-S8OY
+
+Post Key
+
+https://environmentalpools.wufoo.com/api/v3/reports.json?pretty=true
+
+https://environmentalpools.wufoo.com/api/v3/forms.json?pretty=true&includeTodayCount=false
+
+https://environmentalpools.wufoo.com/api/v3/forms/{formIdentifier}/fields.{xml|json}?[pretty=true]&[system=true]
+
+https://environmentalpools.wufoo.com/api/v3/users.xml?pretty=true
