@@ -11,7 +11,7 @@ Ext.define("EnvPoolsForms.view.FormsList", {
         },
         items: [{
             xtype: "list",
-            store: "Forms",
+            store: "Reports",
             itemId:"formsList",
             loadingText: "Loading Forms...",
             emptyText: "<div class=\"forms-list-empty-text\">No forms found.</div>",

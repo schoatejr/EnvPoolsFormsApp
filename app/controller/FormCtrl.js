@@ -71,21 +71,8 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 
     },
 
-    showRegister: function(button, e, eOpts) {
-
-        var registerForm = Ext.create('widget.registerform'),	// Registration form
-            mainView = this.getMainView();						// Main view
-
-        // Navigate to register
-        mainView.push({
-            xtype: "registerform",
-            title: "Register"
-        });
-
-    },
-
     login: function(button, e, eOpts) {
-
+    	var me = this;
         var form = button.up('formpanel'),			// Login form
         	values = form.getValues(),				// Form values
         	mainView = this.getMainView(),			// Main view
@@ -104,6 +91,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 
             // Show welcome panel
             //welcomePanel.show();
+            me.doMyLogin();
 
             // Navigate to register
             mainView.push({
@@ -137,6 +125,133 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         successCallback();
     },
     
+    doMyLogin: function() 
+    {
+    	var me = this;
+        var mainView = this.getMainView();			// Login form
+    	
+//        mainView.setMasked
+//		  ({
+//          xtype: 'loadmask',
+//          message: 'Connecting...'
+//        });
+
+        Ext.Ajax.request
+		  ({
+	        //url: '/EnvPoolsForms/data/testForms.json',
+	        url: '/EnvPoolsForms/app/wufooApi/index2.php?functionName=getFormsDropdown',
+        params: {
+        },
+        withCredentials: false,
+        useDefaultXhrHeader: false,
+        success: function(response) 
+        {
+			console.log('get testForms was successful');
+  		    console.log(response.responseText);
+          var token = Ext.decode(response.responseText).currentTokenValue;
+          var myForms = Ext.decode(response.responseText);
+ 		  var jsonData = Ext.util.JSON.decode(response.responseText);
+          
+        },
+        failure: function(response) 
+			{
+				console.log('get testForms was failed');
+        }
+      });
+
+/**        
+        Ext.data.JsonP.request({
+            //url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
+            url: 'http://localhost/EnvPoolsForms/data/testForms.json',
+            callbackKey: 'callback',
+            format: 'json',
+            params: 
+            {
+            },
+          callback:function(result)
+          {
+          	if (response)
+          	{
+                  console.log("the URL call returned : \n" + response);
+                  mainView.setMasked(false);
+          	}
+          	else
+          	{
+          		console.log("the URL call returned : \n" + result);
+          		console.log("The results of the URL call failed");
+                  mainView.setMasked(false);
+          	}
+          },
+            success: function(response) 
+            {
+  				console.log('json success');
+  			Ext.Msg.alert('Login was successful');
+              mainView.setMasked(false);
+              var token = Ext.decode(response.responseText).currentTokenValue;
+            },
+//            failure: function(response) 
+//  			{
+//				console.log('json failure');
+//              mainView.setMasked(false);
+//              if (response.status == 401) 
+//  			{
+//  				console.log('Invalid username/password');
+//              } 
+//  			else 
+//  			{
+//  				console.log('Unable to connect to server');
+//              }
+//            },
+//
+//            callback:function(result,response)
+//            {
+//            	if (response)
+//            	{
+//                    console.log("the URL call returned : \n" + response);
+//                    mainView.setMasked(false);
+//            	}
+//            	else
+//            	{
+//            		console.log("The results of the URL call failed");
+//                    mainView.setMasked(false);
+//            	}
+//            }
+       });
+*/
+        
+/**
+        Ext.Ajax.request
+		  ({
+          url: 'https://environmentalpools.wufoo.com/api/v3/forms.json?pretty=true&includeTodayCount=false',
+          method: 'POST',
+          params: {
+            username: 'username',
+            password: 'password'
+          },
+          withCredentials: false,
+          useDefaultXhrHeader: false,
+          success: function(response) 
+          {
+			Ext.Msg.alert('Login was successful');
+            me.mainView.setMasked(false);
+            var token = Ext.decode(response.responseText).currentTokenValue;
+          },
+          failure: function(response) 
+			{
+            me.mainView.setMasked(false);
+            if (response.status == 401) 
+			{
+				console.log('Invalid username/password');
+            } 
+			else 
+			{
+				console.log('Unable to connect to server');
+            }
+          }
+        });
+*/
+    },
+
     /**
      * Performs the login sequence.
      */
@@ -175,7 +290,8 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             },
             withCredentials: true,
             useDefaultXhrHeader: false,
-            success: function(response) {
+            success: function(response) 
+            {
               me.loadStores();
               me.showMainView();
               me.setUserIndicator(username);
@@ -195,50 +311,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             }
           });
         }
+
       }
     },
-
-    register: function(button, e, eOpts) {
-
-        var form = button.up('formpanel'),			// Login form
-            values = form.getValues(),				// Form values
-            mainView = this.getMainView(),			// Main view
-            loginPanel = this.getLoginPanel(),		// Login and register buttons
-            welcomePanel = this.getWelcomePanel();	// Welcome panel
-
-        // Success
-        var successCallback = function(resp, ops) {
-
-            // Go back
-            mainView.pop();
-
-            // Hide login panel
-            loginPanel.hide();
-
-            // Show welcome panel
-            welcomePanel.show();
-
-        };
-
-        // Failure
-        var failureCallback = function(resp, ops) {
-
-            // Show login failure error
-            Ext.Msg.alert("Registration Failure", resp);
-
-        };
-
-
-        // TODO: Register using server-side authentication service
-        // Ext.Ajax.request({
-        //		url: "/api/register",
-        //		params: values,
-        //		success: successCallback,
-        //		failure: failureCallback
-        // });
-
-        // Just run success for now
-        successCallback();
-    }
-
 });

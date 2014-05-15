@@ -35,7 +35,8 @@ Ext.application({
     ],
     stores: 
     [
-        'Forms'
+        'Forms',
+        'Reports'
     ],
     models: 
     [
