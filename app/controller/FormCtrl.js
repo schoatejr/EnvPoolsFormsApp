@@ -7,12 +7,12 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
               loginPanel: 'mainview #loginPanel',
             welcomePanel: 'mainview #welcomePanel',
                formsList: 'formslist',
-              formEditor: 'formeditorview',
+              formEditorView: 'formeditorview'
         },
 
         control: {
         	
-        	"formEditor" : {
+        	formEditorview : {
                 // The commands fired by the notes list container.
         		submitFormCommand: "onSubmitFormCommand"
             },        	
@@ -34,6 +34,10 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             }
         }
     },
+
+    // Transitions
+    slideLeftTransition: { type: 'slide', direction: 'left' },
+    slideRightTransition: { type: 'slide', direction: 'right' },    
     onSubmitFormCommand: function (list, record) 
     {
         console.log("Event : onSubmitFormCommand");
@@ -46,17 +50,33 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     activateFormEditor: function (record) {
 
         console.log("Ready to activate form : " + record.get('Name'));
+        console.log("Ready call link : " + record.get('LinkEntries'));
 
-        mainView = this.getMainView();				// Main view
 
-        var formEditorView = Ext.create('widget.formeditorview');
-        formEditorView.setRecord(record); // load() is deprecated.
-        //Ext.Viewport.animateActiveItem(formEditorView, this.slideLeftTransition);
+        Ext.Ajax.request
+          ({
+            url: record.get('LinkFields'),
+        params: {
+        },
+        withCredentials: false,
+        useDefaultXhrHeader: false,
+        success: function(response) 
+        {
+            console.log('get testForms was successful');
+            console.log(response.responseText);
+          
+        },
+        failure: function(response) 
+            {
+                console.log('get testForms was failed');
+        }
+      });
+        var formEditorView = Ext.create('widget.formeditorview'); // Login form
+
         
-        mainView.push({
-            xtype: "formeditorview",
-            title: record.get('Name')
-        });
+        //var formEditorView = this.getFormEditorview();
+        formEditorView.setRecord(record); // load() is deprecated.
+        Ext.Viewport.animateActiveItem(formEditorView, this.slideLeftTransition);        
     },
     showLogin: function(button, e, eOpts) {
 
@@ -138,8 +158,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 
         Ext.Ajax.request
 		  ({
-	        //url: '/EnvPoolsForms/data/testForms.json',
-	        url: '/EnvPoolsForms/app/wufooApi/index2.php?functionName=getFormsDropdown',
+	        url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
         params: {
         },
         withCredentials: false,
@@ -148,9 +167,6 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         {
 			console.log('get testForms was successful');
   		    console.log(response.responseText);
-          var token = Ext.decode(response.responseText).currentTokenValue;
-          var myForms = Ext.decode(response.responseText);
- 		  var jsonData = Ext.util.JSON.decode(response.responseText);
           
         },
         failure: function(response) 
@@ -159,97 +175,6 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         }
       });
 
-/**        
-        Ext.data.JsonP.request({
-            //url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
-            url: 'http://localhost/EnvPoolsForms/data/testForms.json',
-            callbackKey: 'callback',
-            format: 'json',
-            params: 
-            {
-            },
-          callback:function(result)
-          {
-          	if (response)
-          	{
-                  console.log("the URL call returned : \n" + response);
-                  mainView.setMasked(false);
-          	}
-          	else
-          	{
-          		console.log("the URL call returned : \n" + result);
-          		console.log("The results of the URL call failed");
-                  mainView.setMasked(false);
-          	}
-          },
-            success: function(response) 
-            {
-  				console.log('json success');
-  			Ext.Msg.alert('Login was successful');
-              mainView.setMasked(false);
-              var token = Ext.decode(response.responseText).currentTokenValue;
-            },
-//            failure: function(response) 
-//  			{
-//				console.log('json failure');
-//              mainView.setMasked(false);
-//              if (response.status == 401) 
-//  			{
-//  				console.log('Invalid username/password');
-//              } 
-//  			else 
-//  			{
-//  				console.log('Unable to connect to server');
-//              }
-//            },
-//
-//            callback:function(result,response)
-//            {
-//            	if (response)
-//            	{
-//                    console.log("the URL call returned : \n" + response);
-//                    mainView.setMasked(false);
-//            	}
-//            	else
-//            	{
-//            		console.log("The results of the URL call failed");
-//                    mainView.setMasked(false);
-//            	}
-//            }
-       });
-*/
-        
-/**
-        Ext.Ajax.request
-		  ({
-          url: 'https://environmentalpools.wufoo.com/api/v3/forms.json?pretty=true&includeTodayCount=false',
-          method: 'POST',
-          params: {
-            username: 'username',
-            password: 'password'
-          },
-          withCredentials: false,
-          useDefaultXhrHeader: false,
-          success: function(response) 
-          {
-			Ext.Msg.alert('Login was successful');
-            me.mainView.setMasked(false);
-            var token = Ext.decode(response.responseText).currentTokenValue;
-          },
-          failure: function(response) 
-			{
-            me.mainView.setMasked(false);
-            if (response.status == 401) 
-			{
-				console.log('Invalid username/password');
-            } 
-			else 
-			{
-				console.log('Unable to connect to server');
-            }
-          }
-        });
-*/
     },
 
     /**

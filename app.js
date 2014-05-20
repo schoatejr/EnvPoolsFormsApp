@@ -65,8 +65,19 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
+        var formListView = {
+            xtype: "formslist"
+        };
+
+
+
+        var formEditorView = {
+            xtype: "formeditorview"
+        };
+
         // Initialize the main view
         Ext.Viewport.add(Ext.create('EnvPoolsForms.view.MainView'));
+        //Ext.Viewport.add([formListView, formEditorView]);
     },
 
     onUpdated: function() {

@@ -15,17 +15,12 @@ Ext.define("EnvPoolsForms.store.Reports", {
         listeners : {
             load : function (store) 
             {
-                console.log("Hello World 3!!!"); //Blam!
-
-                console.log("The name is : " + store.totalCount()); //Blam!
-
-                console.log("Hello World 4!!!"); //Blam!
+                console.log("The name is : " + store.getCount()); //Blam!
             }
         },
         proxy: {
             type: 'ajax',
-            //url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
-            url: 'http://localhost/EnvPoolsForms/data/testForms.json',
+            url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
             id: 'envpoolsforms-app-store2',
             reader: 
             {
