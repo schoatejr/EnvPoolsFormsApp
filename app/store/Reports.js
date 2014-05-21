@@ -11,7 +11,7 @@ Ext.define("EnvPoolsForms.store.Reports", {
              ],
     config: {
         model: "EnvPoolsForms.model.Form",
-        autoLoad: true,
+        autoLoad: false,
         listeners : {
             load : function (store) 
             {

@@ -16,12 +16,12 @@ Ext.define('EnvPoolsForms.view.LoginForm', {
                 items: [
                     {
                         xtype: 'textfield',
-                        label: 'Username',
+                        label: 'email',
                         labelWidth: '40%',
-                        name: 'username'
+                        name: 'email'
                     },
                     {
-                        xtype: 'textfield',
+                        xtype:'passwordfield',
                         label: 'Password',
                         labelWidth: '40%',
                         name: 'password'

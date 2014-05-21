@@ -5,7 +5,8 @@ Ext.define('EnvPoolsForms.view.MainView', {
     requires: [
         'Ext.Panel',
         'Ext.Button',
-        'Ext.Label'
+        'Ext.Label',
+        'Ext.field.Password'
     ],
 
     config: {
@@ -26,15 +27,17 @@ Ext.define('EnvPoolsForms.view.MainView', {
                                     items: [
                                         {
                                             xtype: 'textfield',
-                                            label: 'Username',
+                                            label: 'Email',
                                             labelWidth: '40%',
-                                            name: 'username'
+                                            name: 'email',
+                                            value: 'schoatejr@yahoo.com'
                                         },
                                         {
-                                            xtype: 'textfield',
+                                            xtype: 'passwordfield',
                                             label: 'Password',
                                             labelWidth: '40%',
-                                            name: 'password'
+                                            name: 'password',
+                                            value: 'Mother!23'
                                         }
                                     ]
                                 },

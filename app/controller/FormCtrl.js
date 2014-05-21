@@ -91,65 +91,85 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 
     },
 
-    login: function(button, e, eOpts) {
+    login: function(button, e, eOpts)
+    {
     	var me = this;
         var form = button.up('formpanel'),			// Login form
-        	values = form.getValues(),				// Form values
         	mainView = this.getMainView(),			// Main view
-        	loginPanel = this.getLoginPanel(),		// Login and register buttons
-        	welcomePanel = this.getWelcomePanel(),	// Welcome panel
-        	homePanel = Ext.create('widget.homepanel');	// Home Panel
+        	loginPanel = this.getLoginPanel();		// Login and register buttons
 
-        // Success
-        var successCallback = function(resp, ops) {
+        var email = loginPanel.getValues().email,
+            password = loginPanel.getValues().password;
 
-            // Go back
-            //mainView.pop();
+        Ext.Ajax.request
+        ({
+            url: 'https://wufoo.com/api/v3/login.json',
+            params:
+            {
+                integrationKey: 'Zjfp93fXVX',
+                email: email,
+                password: password,
+                subdomain: 'environmentalpools'
+            },
+            withCredentials: true,
+            useDefaultXhrHeader: false,
 
-            // Hide login panel
-            //loginPanel.hide();
+            success: function(response)
+            {
+                console.log('Login post request was successful');
+                console.log(response.responseText);
 
-            // Show welcome panel
-            //welcomePanel.show();
-            me.doMyLogin();
+                Ext.Ajax.request
+                ({
+                    url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
+                    //url: 'https://JTFE-F57Z-YBHR-S8OY:environmentalpools@wufoo.com/api/v3/forms.json',
+                    //url: 'https://environmentalpools.wufoo.com/api/v3/users/nsml8wz00loyb9.json',
+                    method: 'GET',
+                    // timeout occurs on invalid credentials?
+                    timeout: 2000,
+                    //enable basic authentication
+                    withCredentials: true,
+                    // need useDefaultXhrHeader: false and disableCaching: true to get cookies to work.
+                    useDefaultXhrHeader: false,
+                    disableCaching: true,
 
-            // Navigate to register
-            mainView.push({
-                xtype: "homepanel",
-                title: "The Home Panel"
-            });
-            
-            //Show home panel
-            //homePanel.show();
+                    params:
+                    {
+                        username: email,
+                        password: password
+                    },
+                    success: function(response)
+                    {
+                        console.log('Form post request was successful');
+                        console.log(response.responseText);
 
-        };
-
-        // Failure
-        var failureCallback = function(resp, ops) {
-
-            // Show login failure error
-            Ext.Msg.alert("Login Failure", resp);
-
-        };
-
-
-        // TODO: Login using server-side authentication service
-        // Ext.Ajax.request({
-        //		url: "/api/login",
-        //		params: values,
-        //		success: successCallback,
-        //		failure: failureCallback
-        // });
-
-        // Just run success for now
-        successCallback();
+                        // Navigate to register
+                        mainView.push({
+                            xtype: "homepanel",
+                            title: "The Home Panel"
+                        });
+                    },
+                    failure: function(response)
+                    {
+                        console.log('Form post request failed');
+                    }
+                });
+            },
+            failure: function(response)
+            {
+                console.log('Login post request failed');
+            }
+        });
     },
     
     doMyLogin: function() 
     {
     	var me = this;
         var mainView = this.getMainView();			// Login form
-    	
+        loginPanel = this.getLoginPanel(),		// Login and register buttons
+        email = loginPanel.getValues().email,
+        password = loginPanel.getValues().password;
+
 //        mainView.setMasked
 //		  ({
 //          xtype: 'loadmask',
@@ -157,23 +177,47 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 //        });
 
         Ext.Ajax.request
-		  ({
-	        url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
-        params: {
-        },
-        withCredentials: false,
-        useDefaultXhrHeader: false,
-        success: function(response) 
-        {
-			console.log('get testForms was successful');
-  		    console.log(response.responseText);
-          
-        },
-        failure: function(response) 
-			{
-				console.log('get testForms was failed');
-        }
-      });
+        ({
+            url: 'https://wufoo.com/api/v3/login.json',
+            params:
+            {
+                integrationKey: 'Zjfp93fXVX',
+                email: email,
+                password: password,
+                subdomain: 'environmentalpools'
+            },
+            withCredentials: false,
+            useDefaultXhrHeader: false,
+            success: function(response)
+            {
+                console.log('Login post request was successful');
+                console.log(response.responseText);
+
+            },
+            failure: function(response)
+            {
+                console.log('Login post request failed');
+            }
+        });
+
+        Ext.Ajax.request
+        ({
+            url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
+            params: {
+            },
+            withCredentials: false,
+            useDefaultXhrHeader: false,
+            success: function(response)
+            {
+                console.log('get testForms was successful');
+                console.log(response.responseText);
+
+            },
+            failure: function(response)
+            {
+                console.log('get testForms was failed');
+            }
+        });
 
     },
 
@@ -236,7 +280,6 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             }
           });
         }
-
       }
-    },
+    }
 });
