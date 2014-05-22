@@ -11,6 +11,7 @@ Ext.define("EnvPoolsForms.store.Reports", {
              ],
     config: {
         model: "EnvPoolsForms.model.Form",
+        storeId : 'Reports',
         autoLoad: false,
         listeners : {
             load : function (store) 
@@ -20,7 +21,7 @@ Ext.define("EnvPoolsForms.store.Reports", {
         },
         proxy: {
             type: 'ajax',
-            url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
+            //url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
             id: 'envpoolsforms-app-store2',
             reader: 
             {

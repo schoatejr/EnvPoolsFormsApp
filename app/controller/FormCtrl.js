@@ -7,7 +7,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
               loginPanel: 'mainview #loginPanel',
             welcomePanel: 'mainview #welcomePanel',
                formsList: 'formslist',
-              formEditorView: 'formeditorview'
+              formEditorView: 'formeditorview',
         },
 
         control: {
@@ -94,12 +94,16 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     login: function(button, e, eOpts)
     {
     	var me = this;
-        var form = button.up('formpanel'),			// Login form
-        	mainView = this.getMainView(),			// Main view
-        	loginPanel = this.getLoginPanel();		// Login and register buttons
+        var mainView = this.getMainView(),			// Main view
+        	loginPanel = this.getLoginPanel();
 
         var email = loginPanel.getValues().email,
             password = loginPanel.getValues().password;
+
+        loginPanel.setMasked({
+            xtype: 'loadmask',
+            message: 'Connecting...'
+          });
 
         Ext.Ajax.request
         ({
@@ -111,49 +115,30 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
                 password: password,
                 subdomain: 'environmentalpools'
             },
-            withCredentials: true,
+            withCredentials: false,
             useDefaultXhrHeader: false,
 
             success: function(response)
             {
+            	loginPanel.setMasked(false);
                 console.log('Login post request was successful');
                 console.log(response.responseText);
-
-                Ext.Ajax.request
-                ({
-                    url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
-                    //url: 'https://JTFE-F57Z-YBHR-S8OY:environmentalpools@wufoo.com/api/v3/forms.json',
-                    //url: 'https://environmentalpools.wufoo.com/api/v3/users/nsml8wz00loyb9.json',
-                    method: 'GET',
-                    // timeout occurs on invalid credentials?
-                    timeout: 2000,
-                    //enable basic authentication
-                    withCredentials: true,
-                    // need useDefaultXhrHeader: false and disableCaching: true to get cookies to work.
-                    useDefaultXhrHeader: false,
-                    disableCaching: true,
-
-                    params:
-                    {
-                        username: email,
-                        password: password
-                    },
-                    success: function(response)
-                    {
-                        console.log('Form post request was successful');
-                        console.log(response.responseText);
-
-                        // Navigate to register
-                        mainView.push({
-                            xtype: "homepanel",
-                            title: "The Home Panel"
-                        });
-                    },
-                    failure: function(response)
-                    {
-                        console.log('Form post request failed');
-                    }
-                });
+                var data = Ext.JSON.decode(response.responseText.trim());
+                
+                console.log('The currentApi key is : ' + EnvPoolsForms.util.Config.getApiKey());
+                EnvPoolsForms.util.Config.setApiKey(data.ApiKey);
+                console.log('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
+                var reportsStore = Ext.getStore('Reports');
+                reportsStore.getProxy().setUrl('https://' + EnvPoolsForms.util.Config.getApiKey() + ':footastic@environmentalpools.wufoo.com/api/v3/forms.json');
+                reportsStore.load();
+                
+//              // Navigate to register
+		          mainView.push({
+		              xtype: "homepanel",
+		              title: "The Home Panel"
+		          });
+		          
+                
             },
             failure: function(response)
             {

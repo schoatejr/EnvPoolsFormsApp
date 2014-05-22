@@ -14,7 +14,8 @@ Ext.application({
     name: 'EnvPoolsForms',
 
     requires: [
-        'Ext.MessageBox'
+        'Ext.MessageBox',
+        'EnvPoolsForms.util.Config'
     ],
 
     views: 
