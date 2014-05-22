@@ -6,10 +6,31 @@ JTFE-F57Z-YBHR-S8OY
 
 Post Key
 
-https://environmentalpools.wufoo.com/api/v3/reports.json?pretty=true
+*** Login call ***
+url: 'https://wufoo.com/api/v3/login.json',
+params:
+integrationKey: 'Zjfp93fXVX',
+email: email,
+password: password,
+subdomain: 'environmentalpools'
 
-https://environmentalpools.wufoo.com/api/v3/forms.json?pretty=true&includeTodayCount=false
+
+https://JTFE-F57Z-YBHR-S8OY:footastic@wufoo.com/api/v3/forms.json?
+
+https://apikey:footastic@wufoo.com/api/v3/forms.json?
+
+https://environmentalpools.wufoo.com/api/v3/forms.json?
+
+https://environmentalpools.wufoo.com/api/v3/forms.json
 
 https://environmentalpools.wufoo.com/api/v3/forms/{formIdentifier}/fields.{xml|json}?[pretty=true]&[system=true]
 
+https://environmentalpools.wufoo.com/api/v3/forms/qe0ob6v05fvf2s/fields.json
+
+
 https://environmentalpools.wufoo.com/api/v3/users.xml?pretty=true
+
+
+http://localhost/EnvPoolsForms/app/wufooApi/index.php?apiKey=JTFE-F57Z-YBHR-S8OY&subdomain=environmentalpools&domain=wufoo.com&method=getForms&id=
+
+http://api.worldweatheronline.com/free/v1/weather.ashx?key=qfj4gk3t4u5u3bqc8atf69fn&q=94301&format=json&num_of_days=5
