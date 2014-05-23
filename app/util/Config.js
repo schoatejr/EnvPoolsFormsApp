@@ -9,10 +9,10 @@ Ext.define('EnvPoolsForms.util.Config', {
     },
     setApiKey:function (newApiKey)
     {
-    	this.apiKey = newApiKey
+    	this.apiKey = newApiKey;
     },
     getApiKey:function()
     {
     	return this.apiKey;
     }
-})  
+});

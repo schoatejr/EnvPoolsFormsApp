@@ -8,5 +8,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.baseBrowserLibrary"/>
+	<classpathentry kind="lib" path="app"/>
+	<classpathentry kind="lib" path="touch"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
