@@ -17,38 +17,8 @@ Ext.define('EnvPoolsForms.view.MainView', {
                 layout: 'fit',
                 items: [
                     {
-                        xtype: 'formpanel',
-                        hidden: false,
-                        itemId: 'loginPanel',
-                        items: [
-                                {
-                                    xtype: 'fieldset',
-                                    title: 'Login',
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            label: 'Email',
-                                            labelWidth: '40%',
-                                            name: 'email',
-                                            value: 'schoatejr@yahoo.com'
-                                        },
-                                        {
-                                            xtype: 'passwordfield',
-                                            label: 'Password',
-                                            labelWidth: '40%',
-                                            name: 'password',
-                                            value: 'Mother!23'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'loginButton',
-                                    margin: 20,
-                                    padding: 8,
-                                    text: 'Login'
-                                }
-                            ]
+                        xtype: 'loginform',
+                        itemId: 'loginPanel'
                     },
                     {
                         xtype: 'panel',

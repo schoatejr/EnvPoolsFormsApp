@@ -21,8 +21,8 @@ Ext.application({
     views: 
     [
         'MainView',
-        'LoginForm',
         'HomePanel',
+        'LoginForm',
         'TabPanel',
         'HomeTabPanel',
         'FormsTabPanel',
@@ -36,9 +36,9 @@ Ext.application({
     ],
     stores: 
     [
-        'Forms',
         'Reports'
     ],
+
     models: 
     [
         'Form'

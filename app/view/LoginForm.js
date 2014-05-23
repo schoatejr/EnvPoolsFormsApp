@@ -1,6 +1,6 @@
 Ext.define('EnvPoolsForms.view.LoginForm', {
     extend: 'Ext.form.Panel',
-    alias: 'widget.loginform',
+    xtype: 'loginform',
 
     requires: [
         'Ext.form.FieldSet',
@@ -13,20 +13,23 @@ Ext.define('EnvPoolsForms.view.LoginForm', {
             {
                 xtype: 'fieldset',
                 title: 'Login',
-                items: [
-                    {
-                        xtype: 'textfield',
-                        label: 'email',
-                        labelWidth: '40%',
-                        name: 'email'
-                    },
-                    {
-                        xtype:'passwordfield',
-                        label: 'Password',
-                        labelWidth: '40%',
-                        name: 'password'
-                    }
-                ]
+                items: 
+                    [
+                        {
+                            xtype: 'textfield',
+                            label: 'Email',
+                            labelWidth: '40%',
+                            name: 'email',
+                            value: 'schoatejr@yahoo.com'
+                        },
+                        {
+                            xtype: 'passwordfield',
+                            label: 'Password',
+                            labelWidth: '40%',
+                            name: 'password',
+                            value: 'Mother!23'
+                        }
+                    ]
             },
             {
                 xtype: 'button',

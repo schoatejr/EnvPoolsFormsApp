@@ -2,11 +2,8 @@ Ext.define("EnvPoolsForms.store.Reports", {
     extend: "Ext.data.Store",
     requires: [
                'Ext.dataview.List',
-               'Ext.data.proxy.JsonP',
-               'Ext.data.reader.Xml',
                'Ext.data.reader.Json',
                'Ext.data.Store',
-               'EnvPoolsForms.util.JsonpX',
                'Ext.Map'
              ],
     config: {
@@ -16,13 +13,11 @@ Ext.define("EnvPoolsForms.store.Reports", {
         listeners : {
             load : function (store) 
             {
-                console.log("The name is : " + store.getCount()); //Blam!
+                console.log("The name is : " + store.getCount());
             }
         },
         proxy: {
             type: 'ajax',
-            //url: 'https://environmentalpools.wufoo.com/api/v3/forms.json',
-            id: 'envpoolsforms-app-store2',
             reader: 
             {
                 type: 'json',
