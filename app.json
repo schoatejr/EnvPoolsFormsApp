@@ -2,7 +2,7 @@
     /**
      * The application's namespace, used by Sencha Command to generate classes
      */
-    "name": "EnvPoolsForms",
+    "name": "EnvPoolsFormsApp",
 
     /**
      * The file path to this application's front HTML document, relative to this app.json file
@@ -131,5 +131,5 @@
      * Uniquely generated id for this application, used as prefix for localStorage keys.
      * Normally you should never change this value.
      */
-    "id": "9ec4d7b9-ed6a-41ec-ac86-4206d2d21192"
+    "id": "b33f12ee-4fa6-4823-a89d-10a4d2c114ee"
 }

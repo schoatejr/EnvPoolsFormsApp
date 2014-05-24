@@ -5,21 +5,34 @@
  * metadata-driven class system features 
  */
 Ext.Loader.addClassPathMappings({
-  "Ext": "./touch/src",
-  "Ext.device.Purchases.Product": "./touch/src/device/purchases/Sencha.js",
-  "Ext.device.filesystem.DirectoryEntry": "./touch/src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.Entry": "./touch/src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.FileEntry": "./touch/src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.FileSystem": "./touch/src/device/filesystem/HTML5.js",
-  "Ext.device.purchases.Purchase": "./touch/src/device/purchases/Sencha.js",
-  "Ext.device.sqlite.Database": "./touch/src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLResultSet": "./touch/src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLResultSetRowList": "./touch/src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLTransaction": "./touch/src/device/sqlite/Sencha.js",
-  "Ext.draw.engine.SvgContext.Gradient": "./touch/src/draw/engine/SvgContext.js",
-  "User": "app.js"
+  "EnvPoolsForms": "app",
+  "Ext": "touch/src",
+  "Ext.device.Purchases.Product": "touch/src/device/purchases/Sencha.js",
+  "Ext.device.filesystem.DirectoryEntry": "touch/src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.Entry": "touch/src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.FileEntry": "touch/src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.FileSystem": "touch/src/device/filesystem/HTML5.js",
+  "Ext.device.purchases.Purchase": "touch/src/device/purchases/Sencha.js",
+  "Ext.device.sqlite.Database": "touch/src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLResultSet": "touch/src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLResultSetRowList": "touch/src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
+  "Ext.draw.engine.SvgContext.Gradient": "touch/src/draw/engine/SvgContext.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
+  "EnvPoolsForms.controller.FormCtrl": [],
+  "EnvPoolsForms.model.Form": [],
+  "EnvPoolsForms.store.Reports": [],
+  "EnvPoolsForms.util.Config": [],
+  "EnvPoolsForms.view.AboutTabPanel": [],
+  "EnvPoolsForms.view.FormEditor": [],
+  "EnvPoolsForms.view.FormsList": [],
+  "EnvPoolsForms.view.FormsTabPanel": [],
+  "EnvPoolsForms.view.HomePanel": [],
+  "EnvPoolsForms.view.HomeTabPanel": [],
+  "EnvPoolsForms.view.LoginForm": [],
+  "EnvPoolsForms.view.MainView": [],
+  "EnvPoolsForms.view.TabPanel": [],
   "Ext.AbstractComponent": [],
   "Ext.AbstractManager": [],
   "Ext.AbstractPlugin": [],
@@ -742,10 +755,42 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
-  ],
-  "User": []
+  ]
 });
 Ext.ClassManager.addNameAliasMappings({
+  "EnvPoolsForms.controller.FormCtrl": [],
+  "EnvPoolsForms.model.Form": [],
+  "EnvPoolsForms.store.Reports": [],
+  "EnvPoolsForms.util.Config": [
+    "widget.appConfigUtil"
+  ],
+  "EnvPoolsForms.view.AboutTabPanel": [
+    "widget.abouttabpanel"
+  ],
+  "EnvPoolsForms.view.FormEditor": [
+    "widget.formeditorview"
+  ],
+  "EnvPoolsForms.view.FormsList": [
+    "widget.formslist"
+  ],
+  "EnvPoolsForms.view.FormsTabPanel": [
+    "widget.formstabpanel"
+  ],
+  "EnvPoolsForms.view.HomePanel": [
+    "widget.homepanel"
+  ],
+  "EnvPoolsForms.view.HomeTabPanel": [
+    "widget.hometabpanel"
+  ],
+  "EnvPoolsForms.view.LoginForm": [
+    "widget.loginform"
+  ],
+  "EnvPoolsForms.view.MainView": [
+    "widget.mainview"
+  ],
+  "EnvPoolsForms.view.TabPanel": [
+    "widget.maintabpanel"
+  ],
   "Ext.AbstractComponent": [],
   "Ext.AbstractManager": [],
   "Ext.AbstractPlugin": [],
@@ -1686,6 +1731,5 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
-  "Ext.viewport.WindowsPhone": [],
-  "User": []
+  "Ext.viewport.WindowsPhone": []
 });
