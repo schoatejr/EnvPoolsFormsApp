@@ -197,10 +197,24 @@ this file in most cases.
                      slice,
                      page,
                      native-package"/>
-    <target name="-after-build"/>
+	<target name="-after-build"/>
     <target name="build"
             depends="init,-before-build,-build,-after-build"
-            description="Builds the application"/>
+            description="Copy over the font/EnvPoolsFormsApp folder and remove temp files"/> 
+<!--			
+		<copy todir="${basedir}/resources/css/stylesheets/fonts/EnvPoolsFormsApp" overwrite="true">
+		  <fileset dir="${basedir}/resources/sass/stylesheets/fonts/EnvPoolsFormsApp">
+			<include name="**/*" />
+		  </fileset>
+		</copy>
+		<copy todir="${build.dir}/resources/css/stylesheets/fonts/EnvPoolsFormsApp" overwrite="true">
+		  <fileset dir="${basedir}/resources/sass/stylesheets/fonts/EnvPoolsFormsApp">
+			<include name="**/*" />
+		  </fileset>
+		</copy>
+		<delete dir="${basedir}/${build.dir}"/>
+	</target>
+-->
 
     <!--
     ===============================================================
