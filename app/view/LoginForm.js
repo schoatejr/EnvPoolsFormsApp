@@ -1,10 +1,10 @@
 Ext.define('EnvPoolsForms.view.LoginForm', {
     extend: 'Ext.form.Panel',
     xtype: 'loginform',
+    alias: 'widget.loginform',
 
     requires: [
-        'Ext.form.FieldSet',
-        'Ext.field.Text',
+        'Ext.field.Email',
         'Ext.Button'
     ],
 
@@ -16,7 +16,7 @@ Ext.define('EnvPoolsForms.view.LoginForm', {
                 items: 
                     [
                         {
-                            xtype: 'textfield',
+                            xtype: 'emailfield',
                             label: 'Email',
                             labelWidth: '40%',
                             name: 'email',
@@ -38,7 +38,17 @@ Ext.define('EnvPoolsForms.view.LoginForm', {
                 padding: 8,
                 text: 'Login'
             }
-        ]
-    }
+        ],
+listeners: [{
+    delegate: "#loginButton",
+    event: "tap",
+    fn: "onLoginButtonTap"
+}]
+    },
+onLoginButtonTap: function (evt, options) {
+    console.log('The Login button was tapped');
+    this.fireEvent('loginButtonTappedCommand', this);
+}
+
 
 });

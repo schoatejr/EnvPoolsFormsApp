@@ -6,35 +6,54 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         refs: 
         {
                 mainView: 'mainview',
-              loginPanel: 'mainview #loginPanel',
-            welcomePanel: 'mainview #welcomePanel',
+              loginPanel: 'loginform',
                formsList: 'formslist',
           formEditorView: 'formeditorview',
-          
+               homePanel: 'homepanel',
+            mainTabPanel: 'homepanel #maintabpanel'
         },
         control: 
         {
-        	formEditorview : 
+        	formEditorView : 
         	{
                 // The commands fired by the notes list container.
-        		submitFormCommand: "onSubmitFormCommand"
+        		submitFormCommand: "onSubmitFormCommand",
+        		cancelFormCommand: "onCancelFormCommand"
             },        	
         	"formslist" : 
         	{
                 // The commands fired by the notes list container.
         		editFormCommand: "onEditFormCommand"
             },        	
-            "mainview #loginButton": 
+            loginPanel : 
             {
-                tap: 'login'
+            	loginButtonTappedCommand: 'onLoginButtonTapped'
             },
+            homePanel :
+            {
+            	logoutTappedCommand: 'onLogoutTappedCommand'
+            }
         }
     },
 
     // Transitions
     slideLeftTransition: { type: 'slide', direction: 'left' },
     slideRightTransition: { type: 'slide', direction: 'right' },
-    
+
+    onLogoutTappedCommand: function () 
+    {
+        console.log("Event : onLogoutTappedCommand");
+        var loginPanel = Ext.create('widget.loginform');
+        Ext.Viewport.animateActiveItem(loginPanel, this.slideLeftTransition);
+    },
+    onCancelFormCommand: function () 
+    {
+        console.log("Event : onCancelFormCommand");
+        homePanel = Ext.create('widget.homepanel');
+        mainTabPanel = this.getMainTabPanel();
+        mainTabPanel.setActiveItem(1);
+        Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
+    },
     onSubmitFormCommand: function (list, record) 
     {
         console.log("Event : onSubmitFormCommand");
@@ -69,17 +88,20 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
       });
         var formEditorView = Ext.create('widget.formeditorview');
         formEditorView.setRecord(record);
-        Ext.Viewport.animateActiveItem(formEditorView, this.slideLeftTransition);        
+        Ext.Viewport.animateActiveItem(formEditorView, this.slideLeftTransition);
     },
 
     /**
      * Performs the login sequence.
      */    
-    login: function(button, e, eOpts)
+    onLoginButtonTapped: function(button)
     {
+    	console.log("Event : onLoginButtonTapped");
+    	
     	var me = this;
         var mainView = this.getMainView(),			// Main view
         	loginPanel = this.getLoginPanel();
+        var homePanel = Ext.create('widget.homepanel');
 
         var email = loginPanel.getValues().email,
             password = loginPanel.getValues().password;
@@ -115,14 +137,9 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
                 var reportsStore = Ext.getStore('Reports');
                 reportsStore.getProxy().setUrl('https://' + EnvPoolsForms.util.Config.getApiKey() + ':footastic@environmentalpools.wufoo.com/api/v3/forms.json');
                 reportsStore.load();
-                
-//              // Navigate to register
-		          mainView.push({
-		              xtype: "homepanel",
-		              title: "The Home Panel"
-		          });
-		          
-                
+
+		        Ext.Viewport.setActiveItem(homePanel, this.slideLeftTransition);
+		        //Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
             },
             failure: function(response)
             {

@@ -9,13 +9,20 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
                 xtype: "toolbar",
                 docked: "bottom",      
                 items: [
-                    {
-                        xtype: "button",
-                        ui: "action",
-                        iconCls: "action",
-                        text: "Submit",
-                        itemId: "submitButton"
-                    }
+                        {
+                            xtype: "button",
+                            ui: "action",
+                            iconCls: "action",
+                            text: "Submit",
+                            itemId: "submitButton"
+                        },
+                        {
+                            xtype: "button",
+                            ui: "delete",
+                            iconCls: "delete",
+                            text: "cancel",
+                            itemId: "cancelButton"
+                        }
                 ]
             },
             { xtype: "fieldset",
@@ -39,12 +46,21 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
                 delegate: "#submitButton",
                 event: "tap",
                 fn: "onSubmitButtonTap"
+            },
+            {
+                delegate: "#cancelButton",
+                event: "tap",
+                fn: "onCancelButtonTap"
             }
         ]
     },
     onSubmitButtonTap: function () {
-        console.log("submitFormCommand");
+        console.log("onSubmitButtonTap");
         this.fireEvent("submitFormCommand", this);
+    },
+    onCancelButtonTap: function () {
+        console.log("onCancelButtonTap");
+        this.fireEvent("cancelFormCommand", this);
     }
 });
 

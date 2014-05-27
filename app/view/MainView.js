@@ -13,25 +13,12 @@ Ext.define('EnvPoolsForms.view.MainView', {
         items: [
             {
                 xtype: 'panel',
-                itemId: 'homePanel',
+                itemId: 'homePanel2',
                 layout: 'fit',
                 items: [
                     {
                         xtype: 'loginform',
                         itemId: 'loginPanel'
-                    },
-                    {
-                        xtype: 'panel',
-                        hidden: true,
-                        itemId: 'welcomePanel',
-                        items: [
-                            {
-                                xtype: 'label',
-                                centered: true,
-                                html: 'Welcome!',
-                                itemId: 'welcomeLabel'
-                            }
-                        ]
                     }
                 ]
             }

@@ -75,11 +75,24 @@ Ext.application({
 
 
         var formEditorView = {
-            xtype: "formeditorview"
-        };
+                xtype: "formeditorview"
+            };
+
+        var homePanel = {
+                xtype: "homepanel"
+            };
+
+        var loginForm = {
+                xtype: "loginform"
+            };
+
+        var mainView = {
+                xtype: "mainview"
+            };
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('EnvPoolsForms.view.MainView'));
+        //Ext.Viewport.add(Ext.create('EnvPoolsForms.view.MainView'));
+        Ext.Viewport.add([loginForm, homePanel, formEditorView]);
         //Ext.Viewport.add([formListView, formEditorView]);
     },
 
