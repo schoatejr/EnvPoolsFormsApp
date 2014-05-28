@@ -1,0 +1,35 @@
+
+
+How to start the web server and point to codebase :
+sencha fs web start -map C:\Development\Projects\Sencha
+
+Install NodeJS
+
+Download and install Cordova :
+npm install -g cordova
+
+Download and install Phonegap :
+npm install -g phonegap
+
+cd C:\Development\Software\Mobile\Sencha\touch-2.3.1
+sencha generate app EnvPoolsFormsApp C:\Development\Projects\Sencha\EnvPoolsFormsApp
+sencha app build production
+
+keytool -genkey -v -keystore envpoolsformsapp-release-key.keystore -alias envpoolsformsapp -keyalg RSA -keysize 2048 -validity 10000
+
+keystore for envpoolsformsapp
+envpools
+
+
+cd C:\Development\Projects\Sencha\EnvPoolsFormsApp
+sencha app package run packager.json
+
+sencha phonegap init com.environmentalpools.EnvPoolsFormsApp EnvPoolsFormsApp
+
+
+cd C:\Development\Projects\Sencha\EnvPoolsFormsApp
+
+sencha app build -run native
+
+
+sencha app build native
