@@ -134,19 +134,25 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
                 console.log('The currentApi key is : ' + EnvPoolsForms.util.Config.getApiKey());
                 EnvPoolsForms.util.Config.setApiKey(data.ApiKey);
                 console.log('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
+                
                 var reportsStore = Ext.getStore('Reports');
-                reportsStore.getProxy().setUrl('https://' + EnvPoolsForms.util.Config.getApiKey() + ':footastic@environmentalpools.wufoo.com/api/v3/forms.json');
+				if(!reportsStore) reportsStore = Ext.create('EnvPoolsForms.store.Reports');
+                
+ 				reportsStore.getProxy().setUsername(EnvPoolsForms.util.Config.getApiKey());
+                console.log('The Report store url is  : ' + reportsStore.getProxy().getUrl());
+                console.log('The Report store getUsername is  : ' + reportsStore.getProxy().getUsername());
+                console.log('The Report store getPassword is  : ' + reportsStore.getProxy().getPassword());
+
                 reportsStore.load();
 
 		        Ext.Viewport.setActiveItem(homePanel, this.slideLeftTransition);
-		        //Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
             },
             failure: function(response)
             {
                 console.log('Login post request failed');
             }
         });
-    }
+    },
 }
 
 );
