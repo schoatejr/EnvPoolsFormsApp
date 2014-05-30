@@ -25,7 +25,8 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
                         }
                 ]
             },
-            { xtype: "fieldset",
+            {   xtype: "fieldset",
+            	itemId: "fieldsform",
                 items: [
                     {
                         xtype: 'textfield',
