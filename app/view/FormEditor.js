@@ -27,19 +27,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
             },
             {   xtype: "fieldset",
             	itemId: "fieldsform",
-                items: [
-                    {
-                        xtype: 'textfield',
-                        name: 'Name',
-                        label: 'Title',
-                        required: true
-                    },
-                    {
-                        xtype: 'textareafield',
-                        name: 'Description',
-                        label: 'Narrative'
-                    }
-                ]
+            	items:[]
             }
         ],
         listeners: [
@@ -62,6 +50,23 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     onCancelButtonTap: function () {
         console.log("onCancelButtonTap");
         this.fireEvent("cancelFormCommand", this);
+    },
+    setFormDataView: function(data) 
+    {
+    	var me = this;
+    	var jsonData  = JSON.parse(data);
+    	Ext.iterate(jsonData.Fields, function(item) 
+    	{
+        	console.log('The element type is : ' + item.Type);
+        	console.log('The title is : ' + item.Title);
+    		if (item.Type == 'text')
+    		{
+    			me.add({
+    				xtype: 'textfield',
+    				label: item.Title
+    			});
+    		};
+        });
     }
 });
 

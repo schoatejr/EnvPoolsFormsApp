@@ -83,17 +83,13 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             console.log('get testForms was successful');
             console.log(response.responseText);
             var data = Ext.JSON.decode(response.responseText.trim());
-            //me.loadFormData(data);
+            me.loadFormData(response.responseText.trim());
         },
         failure: function(response) 
             {
                 console.log('get testForms was failed');
         }
       });
-      
-        var formEditorView = Ext.create('widget.formeditorview');
-        formEditorView.setRecord(record);
-        Ext.Viewport.animateActiveItem(formEditorView, this.slideLeftTransition);
     },
 
     /**
@@ -161,63 +157,9 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     
     loadFormData: function(data)
     {
-        var me = this;
-        var formEditor = this.getFieldsForm();
-        console.log('In loadFormData with : ' + data);
-    
-var tpl = new Ext.XTemplate(
-    '<p>Title: {name}</p>',
-    '<p>Kids: ',
-    '<tpl for="Fields">',
-    '<p>Title: {Title}</p>',
-    '<p>Type: {Type}</p>',
-/**    
-        '<tpl if="this.isGirl(name)">',
-            '<p>Girl: {name} - {age}</p>',
-        '<tpl else>',
-            '<p>Boy: {name} - {age}</p>',
-        '</tpl>',
-        '<tpl if="this.isBaby(age)">',
-            '<p>{name} is a baby!</p>',
-        '</tpl>',
-*/        
-    '</tpl>',
-    
-    '</p>',
-    {
-        // XTemplate configuration:
-        disableFormats: true,
-        // member functions:
-        isGirl: function(name){
-           return name == 'Sara Grace';
-        },
-        isBaby: function(age){
-           return age < 1;
-        }
-    }
-);
-
-    var formEditorView = Ext.create('widget.formeditorview');
-tpl.overwrite(formEditorView.element, data);
-//tpl.overwrite(formEditor, data);
-
-/*
-    for (i = 0; i < data.fields.length; i++) {
-        if (data.fields[i].Type == 'text')
-        {
-        
-      form.add({
-        xtype: 'textfield',
-        fieldLabel: data.fields[i].Title       
-      });
-      
-      };
-    }
-    form.doLayout();
-*/
-    
-    Ext.Viewport.animateActiveItem(formEditorView, this.slideLeftTransition);
-    
+  		var formEditorView = Ext.create('widget.formeditorview');
+  		formEditorView.setFormDataView(data);
+			Ext.Viewport.animateActiveItem(formEditorView, this.slideLeftTransition);
     }
 }
 
