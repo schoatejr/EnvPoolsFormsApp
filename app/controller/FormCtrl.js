@@ -70,20 +70,22 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         var me = this;
         console.log("Ready to activate form : " + record.get('Name'));
         console.log("Ready call link : " + record.get('LinkEntries'));
+        console.log("Hash : " + record.get('Hash'));
 
         Ext.Ajax.request
           ({
-            url: record.get('LinkFields'),
-        params: {
-        },
-        withCredentials: false,
+        withCredentials: true,
+        password: 'footastic',
+        username: EnvPoolsForms.util.Config.getApiKey(),
+        url: 'https://environmentalpools.wufoo.com/api/v3/forms/' + record.get('Hash') + '/fields.json?_dc=1401493412150&page=1&start=0&limit=25',
         useDefaultXhrHeader: false,
         success: function(response) 
         {
             console.log('get testForms was successful');
             console.log(response.responseText);
-            var data = Ext.JSON.decode(response.responseText.trim());
-            me.loadFormData(response.responseText.trim());
+  			var formEditorView = Ext.create('widget.formeditorview');
+  			formEditorView.setFormDataView(response.responseText.trim());
+			Ext.Viewport.setActiveItem(formEditorView, this.slideLeftTransition);            
         },
         failure: function(response) 
             {
@@ -154,13 +156,6 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             }
         });
     },
-    
-    loadFormData: function(data)
-    {
-  		var formEditorView = Ext.create('widget.formeditorview');
-  		formEditorView.setFormDataView(data);
-			Ext.Viewport.animateActiveItem(formEditorView, this.slideLeftTransition);
-    }
 }
 
 );
