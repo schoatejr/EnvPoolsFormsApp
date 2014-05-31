@@ -5,6 +5,21 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     config: {
         scrollable: 'vertical',
         items: [
+                {
+                    xtype: 'titlebar',
+                    cls: 'title',
+                    docked: 'top',
+                    title: 'Environmental Pools',
+                    items: [
+                    {
+                       ui: 'button',
+                       action: 'logoutCommand',
+                       itemId:"logoutButton",
+                       align: 'right',
+                       text: 'Logout'
+                    }
+                    ]
+                },                
             {
                 xtype: "toolbar",
                 docked: "bottom",      
@@ -55,18 +70,19 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     {
     	var me = this;
     	var jsonData  = JSON.parse(data);
+    	var baseFieldSet = Ext.create('Ext.form.FieldSet');
     	Ext.iterate(jsonData.Fields, function(item) 
     	{
-        	console.log('The element type is : ' + item.Type);
-        	console.log('The title is : ' + item.Title);
-    		if (item.Type == 'text')
-    		{
-    			me.add({
-    				xtype: 'textfield',
-    				label: item.Title
-    			});
-    		};
+	        	console.log('The element type is : ' + item.Type);
+	        	console.log('The title is : ' + item.Title);
+	    		if (item.Type == 'text')
+	    		{
+	    			baseFieldSet.add({
+	    				xtype: 'textfield',
+	    				label: item.Title
+	    			});
+	    		};
         });
+    	this.add(baseFieldSet);
     }
 });
-
