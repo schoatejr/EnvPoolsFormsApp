@@ -73,15 +73,90 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     	var baseFieldSet = Ext.create('Ext.form.FieldSet');
     	Ext.iterate(jsonData.Fields, function(item) 
     	{
+                var wfDataType = item.Type;
+                var xType = "textfield";
+
 	        	console.log('The element type is : ' + item.Type);
 	        	console.log('The title is : ' + item.Title);
-	    		if (item.Type == 'text')
+
+	    	/*	if (item.Type == 'text')
 	    		{
 	    			baseFieldSet.add({
 	    				xtype: 'textfield',
 	    				label: item.Title
 	    			});
 	    		};
+                */
+
+                switch (wfDataType) {
+                    case "text":  //textfield
+                        xType = "textfield";
+
+                        baseFieldSet.add({
+                            xtype: xType,
+                            label: item.Title
+                        });
+
+                        break;
+                    case "shortname":  //textfield
+                        xType = "textfield";
+
+                        baseFieldSet.add({
+                            xtype: xType,
+                            label: item.Title
+                        });
+
+                        break;
+                   case "date":  //datefield
+                        xType = "datepickerfield";
+
+                         baseFieldSet.add({
+                            xtype: xType,
+                            label: item.Title,
+                            value: new Date(),
+                            picker: {
+                                yearFrom: 1990
+                            }
+                        });
+
+                        break;                   
+               /*    case "time": //timefield
+                        xType = "timepickerfield";
+
+                        baseFieldSet.add({
+                            xtype: xType,
+                            value: new Date(),
+                            label: item.Title,
+                            picker: {
+                                minHours: 9,
+                                maxHours: 18
+                            }
+                           
+                        });
+
+                        break; */
+                  case "checkbox":  //checkboxfield
+                        xType = "checkboxfield";
+
+                         baseFieldSet.add({
+                            xtype: xType,
+                            label: item.Title
+                        });
+
+                        break;
+                    case "textarea":  //textareafield
+                        xType = "textareafield";
+
+                         baseFieldSet.add({
+                            xtype: xType,
+                            label: item.Title
+                        });
+
+                        break; 
+                }
+
+                
+
         });
     	this.add(baseFieldSet);
     }
