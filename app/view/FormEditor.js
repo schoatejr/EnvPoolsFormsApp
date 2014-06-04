@@ -1,6 +1,6 @@
 Ext.define("EnvPoolsForms.view.FormEditor", {
     extend: "Ext.form.Panel",
-    requires: "Ext.form.FieldSet",
+    requires: ["Ext.form.FieldSet","Ext.field.DatePicker", "Ext.field.Checkbox", "Ext.field.TextArea"],
     alias: "widget.formeditorview",
     config: {
         scrollable: 'vertical',
@@ -70,7 +70,15 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     {
     	var me = this;
     	var jsonData  = JSON.parse(data);
-    	var baseFieldSet = Ext.create('Ext.form.FieldSet');
+    	var baseFieldSet = Ext.create('Ext.form.FieldSet',
+    			{
+    		   defaults: 
+    		   {
+    	       		labelWidth: "35%",
+    	       		labelWrap: "true"
+    			}
+    			}
+    			);
     	Ext.iterate(jsonData.Fields, function(item) 
     	{
                 var wfDataType = item.Type;
@@ -78,15 +86,6 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
 
 	        	console.log('The element type is : ' + item.Type);
 	        	console.log('The title is : ' + item.Title);
-
-	    	/*	if (item.Type == 'text')
-	    		{
-	    			baseFieldSet.add({
-	    				xtype: 'textfield',
-	    				label: item.Title
-	    			});
-	    		};
-                */
 
                 switch (wfDataType) {
                     case "text":  //textfield
@@ -120,21 +119,6 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
                         });
 
                         break;                   
-               /*    case "time": //timefield
-                        xType = "timepickerfield";
-
-                        baseFieldSet.add({
-                            xtype: xType,
-                            value: new Date(),
-                            label: item.Title,
-                            picker: {
-                                minHours: 9,
-                                maxHours: 18
-                            }
-                           
-                        });
-
-                        break; */
                   case "checkbox":  //checkboxfield
                         xType = "checkboxfield";
 

@@ -68,16 +68,16 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     activateFormEditor: function (record) 
     {
         var me = this;
+        var fieldsUrl = record.get('LinkFields');
         console.log("Ready to activate form : " + record.get('Name'));
-        console.log("Ready call link : " + record.get('LinkEntries'));
-        console.log("Hash : " + record.get('Hash'));
+        console.log("Ready to call fields link : " + fieldsUrl);
 
         Ext.Ajax.request
           ({
         withCredentials: true,
         password: 'footastic',
         username: EnvPoolsForms.util.Config.getApiKey(),
-        url: 'https://environmentalpools.wufoo.com/api/v3/forms/' + record.get('Hash') + '/fields.json?_dc=1401493412150&page=1&start=0&limit=25',
+        url: fieldsUrl,
         useDefaultXhrHeader: false,
         success: function(response) 
         {
