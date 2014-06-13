@@ -8,7 +8,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
                 mainView: 'mainview',
               loginPanel: 'loginform',
                formsList: 'formslist',
-          formEditorView: 'formeditorview',
+          formEditor: 'formeditorview',
           fieldsForm: 'formeditorview #fieldsform',
           
                homePanel: 'homepanel',
@@ -16,7 +16,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         },
         control: 
         {
-        	formEditorView : 
+        	formEditor : 
         	{
                 // The commands fired by the notes list container.
         		submitFormCommand: "onSubmitFormCommand",
@@ -56,9 +56,11 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         mainTabPanel.setActiveItem(1);
         Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
     },
-    onSubmitFormCommand: function (list, record) 
+    onSubmitFormCommand: function (curForm) 
     {
         console.log("Event : onSubmitFormCommand");
+        console.log("The curForm is : " + curForm.getId());        
+		var results = EnvPoolsForms.util.Config.generateHTMReport(curForm.getValues(true, true));        
     },
     onEditFormCommand: function (list, record) 
     {
@@ -105,12 +107,24 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         var mainView = this.getMainView(),			// Main view
         	loginPanel = this.getLoginPanel();
         var homePanel = Ext.create('widget.homepanel');
+        
+		var params = loginPanel.getValues(true, true),
+		key;
 
+        for (key in params) 
+        {
+            if (params.hasOwnProperty(key)) 
+            {
+                console.log("The key is [" + key + "] value is [" + params[key] + "]");   
+            }
+        }
+        
         var email = loginPanel.getValues().email,
             password = loginPanel.getValues().password;
 
         loginPanel.setMasked({
             xtype: 'loadmask',
+            fullscreen: true,
             message: 'Connecting...'
           });
 
@@ -126,10 +140,12 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             },
             withCredentials: false,
             useDefaultXhrHeader: false,
+            timeout: 3000,
 
             success: function(response)
             {
             	loginPanel.setMasked(false);
+            	
                 console.log('Login post request was successful');
                 console.log(response.responseText);
                 var data = Ext.JSON.decode(response.responseText.trim());
@@ -152,6 +168,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             },
             failure: function(response)
             {
+            	loginPanel.setMasked(false);
                 console.log('Login post request failed');
             }
         });

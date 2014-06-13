@@ -2,6 +2,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     extend: "Ext.form.Panel",
     requires: ["Ext.form.FieldSet","Ext.field.DatePicker", "Ext.field.Checkbox", "Ext.field.TextArea"],
     alias: "widget.formeditorview",
+    xtype: "formeditorview",
     config: {
         scrollable: 'vertical',
         items: [
@@ -42,6 +43,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
             },
             {   xtype: "fieldset",
             	itemId: "fieldsform",
+            	name: "mainFieldset",
             	items:[]
             }
         ],
@@ -86,6 +88,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
 
 	        	console.log('The element type is : ' + item.Type);
 	        	console.log('The title is : ' + item.Title);
+	        	console.log('The ID is : ' + item.ID);
 
                 switch (wfDataType) {
                     case "text":  //textfield
@@ -93,6 +96,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
 
                         baseFieldSet.add({
                             xtype: xType,
+                            name: item.ID,
                             label: item.Title
                         });
 
@@ -102,6 +106,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
 
                         baseFieldSet.add({
                             xtype: xType,
+                            name: item.ID,
                             label: item.Title
                         });
 
@@ -111,6 +116,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
 
                          baseFieldSet.add({
                             xtype: xType,
+                            name: item.ID,
                             label: item.Title,
                             value: new Date(),
                             picker: {
@@ -124,6 +130,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
 
                          baseFieldSet.add({
                             xtype: xType,
+                            name: item.ID,
                             label: item.Title
                         });
 
@@ -133,6 +140,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
 
                          baseFieldSet.add({
                             xtype: xType,
+                            name: item.ID,
                             label: item.Title
                         });
 
@@ -143,5 +151,5 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
 
         });
     	this.add(baseFieldSet);
-    }
+    }    
 });
