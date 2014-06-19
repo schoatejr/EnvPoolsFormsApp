@@ -28,7 +28,8 @@ Ext.application({
         'FormsTabPanel',
         'AboutTabPanel',
         'FormsList',
-        'FormEditor'
+        'FormEditor',
+        'FormReport'
     ],
     controllers: 
     [
@@ -72,10 +73,12 @@ Ext.application({
             xtype: "formslist"
         };
 
-
-
         var formEditorView = {
                 xtype: "formeditorview"
+            };
+
+        var reportPanel = {
+                xtype: "reportpanel"
             };
 
         var homePanel = {
@@ -92,7 +95,7 @@ Ext.application({
 
         // Initialize the main view
         //Ext.Viewport.add(Ext.create('EnvPoolsForms.view.MainView'));
-        Ext.Viewport.add([loginForm, homePanel, formEditorView]);
+        Ext.Viewport.add([loginForm, homePanel, formEditorView, reportPanel]);
         //Ext.Viewport.add([formListView, formEditorView]);
     },
 

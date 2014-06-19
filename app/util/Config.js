@@ -2,6 +2,7 @@ Ext.define('EnvPoolsForms.util.Config', {
     singleton : true,
     alias : 'widget.appConfigUtil',
    	apiKey : 'xyzKey',
+   	   	
     constructor: function(config) 
     {
         this.initConfig(config);

@@ -60,7 +60,10 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     {
         console.log("Event : onSubmitFormCommand");
         console.log("The curForm is : " + curForm.getId());        
-		var results = EnvPoolsForms.util.Config.generateHTMReport(curForm.getValues(true, true));        
+		        
+		var reportPanel = Ext.create('widget.reportpanel');
+		reportPanel.setFormDataView(curForm.getValues(true, true));
+		Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);            
     },
     onEditFormCommand: function (list, record) 
     {
