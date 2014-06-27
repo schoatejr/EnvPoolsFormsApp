@@ -29,7 +29,8 @@ Ext.application({
         'AboutTabPanel',
         'FormsList',
         'FormEditor',
-        'FormReport'
+        'FormReport',
+        'DateTimePicker'
     ],
     controllers: 
     [
