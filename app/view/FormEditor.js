@@ -49,6 +49,16 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
         ],
         listeners: [
             {
+                delegate: "#logoutButton",
+                event: "tap",
+                fn: "onLogoutButtonTap"
+            },
+            {
+                delegate: "#submitButton",
+                event: "tap",
+                fn: "onSubmitButtonTap"
+            },
+            {
                 delegate: "#submitButton",
                 event: "tap",
                 fn: "onSubmitButtonTap"
@@ -59,6 +69,10 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
                 fn: "onCancelButtonTap"
             }
         ]
+    },
+    onLogoutButtonTap: function () {
+        console.log("onLogoutButtonTap");
+        this.fireEvent("logoutButtonTappedCommand", this);
     },
     onSubmitButtonTap: function () {
         console.log("onSubmitButtonTap");

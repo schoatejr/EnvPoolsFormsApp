@@ -5,27 +5,29 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     {
         refs: 
         {
+                'navView'      : 'navigationview',
                 mainView: 'mainview',
               loginPanel: 'loginform',
                formsList: 'formslist',
           formEditor: 'formeditorview',
           fieldsForm: 'formeditorview #fieldsform',
-          
                homePanel: 'homepanel',
-            mainTabPanel: 'homepanel #maintabpanel'
+            mainTabPanel: 'homepanel #maintabpanel',
+              reportPanel: 'reportpanel'
         },
         control: 
         {
         	formEditor : 
         	{
-                // The commands fired by the notes list container.
-        		submitFormCommand: "onSubmitFormCommand",
-        		cancelFormCommand: "onCancelFormCommand"
+            // The commands fired by the Form Editor container.
+        		submitFormCommand: 'onSubmitFormCommand',
+        		cancelFormCommand: 'onCancelFormCommand',
+        		logoutButtonTappedCommand: 'onLogoutTappedCommand'
             },        	
         	"formslist" : 
         	{
-                // The commands fired by the notes list container.
-        		editFormCommand: "onEditFormCommand"
+            // The commands fired by the forms list container.
+        		editFormCommand: 'onEditFormCommand'
             },        	
             loginPanel : 
             {
@@ -34,7 +36,15 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             homePanel :
             {
             	logoutTappedCommand: 'onLogoutTappedCommand'
+            },
+            reportPanel :
+            {
+              // The commands fired by the Form report container.
+              submitReportCommand: 'onSubmitReportCommand',
+          		cancelReportCommand: 'onCancelReportCommand',
+             	logoutButtonTappedCommand: 'onLogoutTappedCommand'
             }
+            
         }
     },
 
@@ -59,12 +69,38 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     onSubmitFormCommand: function (curForm) 
     {
         console.log("Event : onSubmitFormCommand");
-        console.log("The curForm is : " + curForm.getId());        
+        console.log("The curForm is : " + curForm.getId());
 		        
 		var reportPanel = Ext.create('widget.reportpanel');
 		reportPanel.setFormDataView(curForm.getValues(true, true));
-		Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);            
+		console.log(curForm.getValues());
+		Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);
     },
+
+    onCancelReportCommand: function () 
+    {
+        console.log("Event : onCancelReportCommand");
+        //this.getNavView().pop();
+        //this.getMainView().pop();
+        homePanel = Ext.create('widget.homepanel');
+        mainTabPanel = this.getMainTabPanel();
+        mainTabPanel.setActiveItem(1);
+        Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
+    },
+    onSubmitReportCommand: function (curForm) 
+    {
+      console.log("Event : onSubmitReportCommand");
+      console.log("The curForm is : " + curForm.getId());
+      
+
+      var fieldsStore = Ext.getStore('Fields');
+      if(!fieldsStore) fieldsStore = Ext.create('EnvPoolsForms.store.Fields');
+
+      fieldsStore.each(function(test){
+        console.log(test.data.Title);
+    });
+    },
+
     onEditFormCommand: function (list, record) 
     {
         console.log("Event : onEditFormCommand");
@@ -90,13 +126,26 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             console.log(response.responseText);
   			var formEditorView = Ext.create('widget.formeditorview');
   			formEditorView.setFormDataView(response.responseText.trim());
-			Ext.Viewport.setActiveItem(formEditorView, this.slideLeftTransition);            
+			Ext.Viewport.setActiveItem(formEditorView, this.slideLeftTransition);
         },
         failure: function(response) 
             {
-                console.log('get testForms was failed');
+                console.log('get testForms was failed');o
         }
       });
+        
+        console.log('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
+        
+        var fieldsStore = Ext.getStore('Fields');
+        if(!fieldsStore) fieldsStore = Ext.create('EnvPoolsForms.store.Fields');
+        
+        fieldsStore.getProxy().setUsername(EnvPoolsForms.util.Config.getApiKey());
+        fieldsStore.getProxy().setUrl(fieldsUrl);
+        console.log('The Fields store url is  : ' + fieldsStore.getProxy().getUrl());
+        console.log('The Fields store getUsername is  : ' + fieldsStore.getProxy().getUsername());
+        console.log('The Fields store getPassword is  : ' + fieldsStore.getProxy().getPassword());
+
+        fieldsStore.load();
     },
 
     /**
@@ -114,6 +163,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 		var params = loginPanel.getValues(true, true),
 		key;
 
+    
         for (key in params) 
         {
             if (params.hasOwnProperty(key)) 

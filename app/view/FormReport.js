@@ -41,13 +41,19 @@ Ext.define("EnvPoolsForms.view.FormReport", {
                         }
                 ]
             },
-            {   xtype: "fieldset",
-            	itemId: "reportfieldset",
-            	name: "reportFieldset",
-            	items:[]
+            {   //xtype: "fieldset",
+            	//itemId: "reportfieldset",
+            	//name: "reportFieldset",
+            	//items:[]
+            itemTpl: '<div class="favorite-color">{color}</div>'
             }
         ],
         listeners: [
+            {
+                delegate: "#logoutButton",
+                event: "tap",
+                fn: "onLogoutButtonTap"
+            },
             {
                 delegate: "#submitButton",
                 event: "tap",
@@ -59,6 +65,10 @@ Ext.define("EnvPoolsForms.view.FormReport", {
                 fn: "onCancelButtonTap"
             }
         ]
+    },
+    onLogoutButtonTap: function () {
+        console.log("onLogoutButtonTap");
+        this.fireEvent("logoutButtonTappedCommand", this);
     },
     onSubmitButtonTap: function () {
         console.log("onSubmitButtonTap");

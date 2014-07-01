@@ -22,11 +22,15 @@ Ext.define('EnvPoolsForms.util.Config', {
 
         console.log("Now in generateHTMReport");
         
+        var fieldsStore = Ext.getStore('Fields');
+        if(!fieldsStore) fieldsStore = Ext.create('EnvPoolsForms.store.Fields');
+
         for (key in params) 
         {
             if (params.hasOwnProperty(key)) 
             {
-                console.log("The key is [" + key + "] value is [" + params[key] + "]");   
+                var aRecord = fieldsStore.getById(key);
+                console.log("The key is [" + key + "] value is [" + params[key] + "] the type is [" +aRecord.get('Type') + "]");
             }
         }
         

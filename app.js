@@ -38,12 +38,15 @@ Ext.application({
     ],
     stores: 
     [
-        'Reports'
+        'Reports',
+        'Fields'
     ],
 
     models: 
     [
-        'Form'
+        'Form',
+        'Field',
+        'SubField'
     ],
     
     icon: {
