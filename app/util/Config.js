@@ -29,7 +29,16 @@ Ext.define('EnvPoolsForms.util.Config', {
         {
             if (params.hasOwnProperty(key)) 
             {
-                var aRecord = fieldsStore.getById(key);
+                var aRecord = fieldsStore.findRecord('ID', key);
+                var subFields;
+                
+                if (aRecord.SubFields != null)
+                {
+                    subFields = aRecord.SubFields;
+                    console.log('The field is : ' + aRecord);
+                }
+
+                console.log('The field is : ' + aRecord);
                 console.log("The key is [" + key + "] value is [" + params[key] + "] the type is [" +aRecord.get('Type') + "]");
             }
         }

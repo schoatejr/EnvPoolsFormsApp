@@ -4,7 +4,6 @@ Ext.define('EnvPoolsForms.view.HomeTabPanel', {
 
     requires: [
         'Ext.tab.Panel',
-        'EnvPoolsForms.view.TimePickerField',
         'EnvPoolsForms.view.DateTimePicker',
         'EnvPoolsForms.view.DateTime'
     ],
