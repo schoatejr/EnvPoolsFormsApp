@@ -21,11 +21,17 @@ Ext.Loader.addClassPathMappings({
 });
 Ext.ClassManager.addNameAlternateMappings({
   "EnvPoolsForms.controller.FormCtrl": [],
+  "EnvPoolsForms.model.Field": [],
   "EnvPoolsForms.model.Form": [],
+  "EnvPoolsForms.model.SubField": [],
+  "EnvPoolsForms.store.Fields": [],
   "EnvPoolsForms.store.Reports": [],
   "EnvPoolsForms.util.Config": [],
   "EnvPoolsForms.view.AboutTabPanel": [],
+  "EnvPoolsForms.view.DateTime": [],
+  "EnvPoolsForms.view.DateTimePicker": [],
   "EnvPoolsForms.view.FormEditor": [],
+  "EnvPoolsForms.view.FormReport": [],
   "EnvPoolsForms.view.FormsList": [],
   "EnvPoolsForms.view.FormsTabPanel": [],
   "EnvPoolsForms.view.HomePanel": [],
@@ -759,7 +765,10 @@ Ext.ClassManager.addNameAlternateMappings({
 });
 Ext.ClassManager.addNameAliasMappings({
   "EnvPoolsForms.controller.FormCtrl": [],
+  "EnvPoolsForms.model.Field": [],
   "EnvPoolsForms.model.Form": [],
+  "EnvPoolsForms.model.SubField": [],
+  "EnvPoolsForms.store.Fields": [],
   "EnvPoolsForms.store.Reports": [],
   "EnvPoolsForms.util.Config": [
     "widget.appConfigUtil"
@@ -767,8 +776,17 @@ Ext.ClassManager.addNameAliasMappings({
   "EnvPoolsForms.view.AboutTabPanel": [
     "widget.abouttabpanel"
   ],
+  "EnvPoolsForms.view.DateTime": [
+    "widget.datetimepicker"
+  ],
+  "EnvPoolsForms.view.DateTimePicker": [
+    "widget.datetimepickerfield"
+  ],
   "EnvPoolsForms.view.FormEditor": [
     "widget.formeditorview"
+  ],
+  "EnvPoolsForms.view.FormReport": [
+    "widget.reportpanel"
   ],
   "EnvPoolsForms.view.FormsList": [
     "widget.formslist"

@@ -56,6 +56,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     {
         console.log("Event : onLogoutTappedCommand");
         var loginPanel = Ext.create('widget.loginform');
+        loginPanel.clearFields();
         Ext.Viewport.animateActiveItem(loginPanel, this.slideLeftTransition);
     },
     onCancelFormCommand: function () 
@@ -76,7 +77,6 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 		console.log(curForm.getValues());
 		Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);
     },
-
     onCancelReportCommand: function () 
     {
         console.log("Event : onCancelReportCommand");
@@ -100,7 +100,6 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         console.log(test.data.Title);
     });
     },
-
     onEditFormCommand: function (list, record) 
     {
         console.log("Event : onEditFormCommand");
@@ -147,38 +146,35 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 
         fieldsStore.load();
     },
+	signInFailure: function (message) 
+	{
+	    var loginView = this.getLoginPanel();
+	    loginView.showSignInFailedMessage(message);
+	    loginView.setMasked(false);
+	},    
 
     /**
      * Performs the login sequence.
      */    
-    onLoginButtonTapped: function(button)
+    onLoginButtonTapped: function(view, email, password)
     {
-    	console.log("Event : onLoginButtonTapped");
+	    console.log('Email: ' + email + '\n' + 'Password: ' + password);
+	
+	    var me = this,
+	        loginPanel = me.getLoginPanel();
+		
+	    var homePanel = Ext.create('widget.homepanel');
+	
+	    if (email.length === 0 || password.length === 0) {
+	
+	        loginPanel.showSignInFailedMessage('Please enter your email and password.');
+	        return;
+	    }
     	
-    	var me = this;
-        var mainView = this.getMainView(),			// Main view
-        	loginPanel = this.getLoginPanel();
-        var homePanel = Ext.create('widget.homepanel');
-        
-		var params = loginPanel.getValues(true, true),
-		key;
-
-    
-        for (key in params) 
-        {
-            if (params.hasOwnProperty(key)) 
-            {
-                console.log("The key is [" + key + "] value is [" + params[key] + "]");   
-            }
-        }
-        
-        var email = loginPanel.getValues().email,
-            password = loginPanel.getValues().password;
-
         loginPanel.setMasked({
             xtype: 'loadmask',
             fullscreen: true,
-            message: 'Connecting...'
+            message: 'Signing in...'
           });
 
         Ext.Ajax.request
@@ -203,6 +199,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
                 console.log(response.responseText);
                 var data = Ext.JSON.decode(response.responseText.trim());
                 
+                
                 console.log('The currentApi key is : ' + EnvPoolsForms.util.Config.getApiKey());
                 EnvPoolsForms.util.Config.setApiKey(data.ApiKey);
                 console.log('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
@@ -223,6 +220,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             {
             	loginPanel.setMasked(false);
                 console.log('Login post request failed');
+                loginPanel.showSignInFailedMessage('Login failed. Please check email and password.');
             }
         });
     },
