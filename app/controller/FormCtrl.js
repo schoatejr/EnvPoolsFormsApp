@@ -109,7 +109,8 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     {
         var me = this;
         var fieldsUrl = record.get('LinkFields');
-        console.log("Ready to activate form : " + record.get('Name'));
+        var formName = record.get('Name');
+        console.log("Ready to activate form : " + formName);        
         console.log("Ready to call fields link : " + fieldsUrl);
 
         Ext.Ajax.request
@@ -124,12 +125,12 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             console.log('get testForms was successful');
             console.log(response.responseText);
   			var formEditorView = Ext.create('widget.formeditorview');
-  			formEditorView.setFormDataView(response.responseText.trim());
+  			formEditorView.setFormDataView(formName, response.responseText.trim());
 			Ext.Viewport.setActiveItem(formEditorView, this.slideLeftTransition);
         },
         failure: function(response) 
             {
-                console.log('get testForms was failed');o
+                console.log('get testForms was failed');
         }
       });
         
