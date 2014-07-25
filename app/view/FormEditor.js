@@ -1,6 +1,6 @@
 Ext.define("EnvPoolsForms.view.FormEditor", {
     extend: "Ext.form.Panel",
-    requires: ["Ext.form.FieldSet","Ext.field.DatePicker", "Ext.field.Checkbox", "Ext.field.TextArea", "EnvPoolsForms.view.DateTimePicker"],
+    requires: ["Ext.form.FieldSet", "Ext.field.Number", "Ext.field.DatePicker", "Ext.field.Checkbox", "Ext.field.TextArea", "EnvPoolsForms.view.DateTimePicker"],
     alias: "widget.formeditorview",
     xtype: "formeditorview",
     config: {
@@ -108,17 +108,28 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
 	        	console.log('The ID is : ' + item.ID);
 
                 switch (wfDataType) {
-                    case "text":  //textfield
-                        xType = "textfield";
+                case "text":  //textfield
+                    xType = "textfield";
 
-                        baseFieldSet.add({
-                            xtype: xType,
-                            name: item.ID,
-                            required: tmpBol,
-                            label: item.Title
-                        });
+                    baseFieldSet.add({
+                        xtype: xType,
+                        name: item.ID,
+                        required: tmpBol,
+                        label: item.Title
+                    });
 
-                        break;
+                    break;
+                case "number":  //textfield
+                    xType = "numberfield";
+
+                    baseFieldSet.add({
+                        xtype: xType,
+                        name: item.ID,
+                        required: tmpBol,
+                        label: item.Title
+                    });
+
+                    break;
                     case "shortname":  //textfield
                         xType = "textfield";
 

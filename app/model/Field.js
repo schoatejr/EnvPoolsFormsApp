@@ -11,9 +11,28 @@ Ext.define("EnvPoolsForms.model.Field", {
             { name: 'ClassNames', type: 'string' },
             { name: 'DefaultVal', type: 'String' },
             { name: 'Page', type: 'int' },
+            { name: 'Page', type: 'int' },
+            {name: 'SubFields', convert: 
+            function(value, record) 
+            {
+                if (!value)
+                {
+                    return [];
+                }                
+                else if (value instanceof Array) 
+                {
+                    return value.child;
+                }
+                else
+                {
+                    return [value];
+                }
+            }
+        }            
+            
         ],
-        // we can use the hasOne shortcut on the model to create a hasOne association
-        hasMany: {model: 'SubField', name: 'SubFields'},
+        //// we can use the hasOne shortcut on the model to create a hasOne association
+        //hasMany: {model: 'SubField', name: 'SubFields'},
         validations: [
             { type: 'presence', field: 'Title' },
             { type: 'presence', field: 'ID' },

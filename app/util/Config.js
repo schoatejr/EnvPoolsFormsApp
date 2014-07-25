@@ -79,7 +79,10 @@ var counter = 0;
                 if (aRecord.SubFields != null)
                 {
                     subFields = aRecord.SubFields;
-                    console.log('The field is : ' + aRecord);
+			        for (field in subFields) 
+			        {
+                    	console.log('The field is : ' + field);
+			        }
                 }
 
 var color = "rgb(255, 255, 255);";
