@@ -8,7 +8,7 @@
     {
       "Title" : "Client Name",
       "Instructions" : "",
-      "IsRequired" : "0",
+      "IsRequired" : "1",
       "ClassNames" : "",
       "DefaultVal" : "",
       "Page" : "1",
@@ -40,7 +40,7 @@
     {
       "Title" : "Crew Members",
       "Instructions" : "",
-      "IsRequired" : "0",
+      "IsRequired" : "1",
       "ClassNames" : "",
       "DefaultVal" : "",
       "Page" : "1",
@@ -80,7 +80,7 @@
     {
       "Title" : "Time Arrived On-Site",
       "Instructions" : "",
-      "IsRequired" : "0",
+      "IsRequired" : "1",
       "ClassNames" : "",
       "DefaultVal" : "",
       "Page" : "1",
@@ -180,6 +180,43 @@
       "Page" : "1",
       "Type" : "textarea",
       "ID" : "Field420"
+    },
+    {
+      "Title" : "Screw Sizes",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "Table",
+      "DefaultVal" : "0",
+      "Page" : "1",
+      "SubFields" : [
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field833",
+          "Label" : "3/4\""
+        },
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field834",
+          "Label" : "1/2\""
+        },
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field835",
+          "Label" : "1\""
+        }
+      ],
+      "Type" : "checkbox",
+      "ID" : "Field833"
+    },
+    {
+      "Title" : "My Number Field",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "number",
+      "ID" : "Field934"
     },
     {
       "Title" : "Date Created",

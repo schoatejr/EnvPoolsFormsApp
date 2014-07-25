@@ -21,7 +21,7 @@ Ext.define("EnvPoolsForms.model.Field", {
                 }                
                 else if (value instanceof Array) 
                 {
-                    return value.child;
+                    return value;
                 }
                 else
                 {

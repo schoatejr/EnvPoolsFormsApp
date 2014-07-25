@@ -159,7 +159,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
                   case "checkbox":  //checkboxfield
                         xType = "checkboxfield";
 
-                         if (item.ClassNames == 'group_tbl_cls')
+                         if (item.ClassNames == 'Table')
                          {
                         	console.log('We found a special table');
                         	console.log('The subfields : ' + item.SubFields);

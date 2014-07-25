@@ -76,13 +76,22 @@ var counter = 0;
                 var aRecord = fieldsStore.findRecord('ID', key);
                 var subFields;
                 
-                if (aRecord.SubFields != null)
+                if (!aRecord)
                 {
-                    subFields = aRecord.SubFields;
-			        for (field in subFields) 
-			        {
-                    	console.log('The field is : ' + field);
-			        }
+                	continue;
+                }
+
+                if ((aRecord) && (aRecord._data) && (aRecord._data.SubFields) && (aRecord.get('ClassNames') === 'Table'))
+                {
+                    subFields = aRecord._data.SubFields;
+                    for (var i = 0; i < subFields.length; i++) 
+                    {
+                    	var field = subFields[i];
+                        if (field.ID)
+                        {
+                    	   console.log('The field is : ' + field.Label + ' the value is : ' + params[field.ID]);
+                        }
+                    }
                 }
 
 var color = "rgb(255, 255, 255);";
