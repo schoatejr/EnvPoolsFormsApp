@@ -57,6 +57,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         console.log("Event : onLogoutTappedCommand");
         var loginPanel = Ext.create('widget.loginform');
         loginPanel.clearFields();
+        EnvPoolsForms.util.Config.resetValues();
         Ext.Viewport.animateActiveItem(loginPanel, this.slideLeftTransition);
     },
     onCancelFormCommand: function () 
@@ -67,13 +68,13 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         mainTabPanel.setActiveItem(1);
         Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
     },
-    onSubmitFormCommand: function (curForm) 
+    onSubmitFormCommand: function (curForm, formName) 
     {
         console.log("Event : onSubmitFormCommand");
         console.log("The curForm is : " + curForm.getId());
 		        
 		var reportPanel = Ext.create('widget.reportpanel');
-		reportPanel.setFormDataView(curForm.getValues(true, true));
+		reportPanel.setFormDataView(curForm.getValues(true, true), formName);
 		console.log(curForm.getValues());
 		Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);
     },
@@ -154,77 +155,121 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 	    loginView.setMasked(false);
 	},    
 
-    /**
-     * Performs the login sequence.
-     */    
-    onLoginButtonTapped: function(view, email, password)
-    {
-	    console.log('Email: ' + email + '\n' + 'Password: ' + password);
+  /**
+   * Performs login info sequence.
+   */    
+  onLoginButtonTapped: function(view, email, password)
+  {
+    console.log('Email: ' + email + '\n' + 'Password: ' + password);
+
+    var me = this,
+        loginPanel = me.getLoginPanel();
 	
-	    var me = this,
-	        loginPanel = me.getLoginPanel();
-		
-	    var homePanel = Ext.create('widget.homepanel');
-	
-	    if (email.length === 0 || password.length === 0) {
-	
-	        loginPanel.showSignInFailedMessage('Please enter your email and password.');
-	        return;
-	    }
-    	
-        loginPanel.setMasked({
-            xtype: 'loadmask',
-            fullscreen: true,
-            message: 'Signing in...'
-          });
+    var homePanel = Ext.create('widget.homepanel');
 
-        Ext.Ajax.request
-        ({
-            url: 'https://wufoo.com/api/v3/login.json',
-            params:
-            {
-                integrationKey: 'Zjfp93fXVX',
-                email: email,
-                password: password,
-                subdomain: 'environmentalpools'
-            },
-            withCredentials: false,
-            useDefaultXhrHeader: false,
-            timeout: 3000,
+    if (email.length === 0 || password.length === 0) {
 
-            success: function(response)
-            {
-            	loginPanel.setMasked(false);
-            	
-                console.log('Login post request was successful');
-                console.log(response.responseText);
-                var data = Ext.JSON.decode(response.responseText.trim());
-                
-                
-                console.log('The currentApi key is : ' + EnvPoolsForms.util.Config.getApiKey());
-                EnvPoolsForms.util.Config.setApiKey(data.ApiKey);
-                console.log('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
-                
-                var reportsStore = Ext.getStore('Reports');
-				if(!reportsStore) reportsStore = Ext.create('EnvPoolsForms.store.Reports');
-                
- 				reportsStore.getProxy().setUsername(EnvPoolsForms.util.Config.getApiKey());
-                console.log('The Report store url is  : ' + reportsStore.getProxy().getUrl());
-                console.log('The Report store getUsername is  : ' + reportsStore.getProxy().getUsername());
-                console.log('The Report store getPassword is  : ' + reportsStore.getProxy().getPassword());
-
-                reportsStore.load();
-
-		        Ext.Viewport.setActiveItem(homePanel, this.slideLeftTransition);
-            },
-            failure: function(response)
-            {
-            	loginPanel.setMasked(false);
-                console.log('Login post request failed');
-                loginPanel.showSignInFailedMessage('Login failed. Please check email and password.');
-            }
+        loginPanel.showSignInFailedMessage('Please enter your email and password.');
+        return;
+    }
+  	
+      loginPanel.setMasked({
+          xtype: 'loadmask',
+          fullscreen: true,
+          message: 'Signing in...'
         });
-    },
+
+      Ext.Ajax.request
+      ({
+          url: 'https://wufoo.com/api/v3/login.json',
+          params:
+          {
+              integrationKey: 'Zjfp93fXVX',
+              email: email,
+              password: password,
+              subdomain: 'environmentalpools'
+          },
+          withCredentials: false,
+          useDefaultXhrHeader: false,
+          timeout: 3000,
+
+          success: function(response)
+          {
+          	loginPanel.setMasked(false);
+          	
+              console.log('Login post request was successful');
+              console.log(response.responseText);
+              var data = Ext.JSON.decode(response.responseText.trim());
+              
+              EnvPoolsForms.util.Config.setUserEmail(email);
+              
+              console.log('The currentApi key is : ' + EnvPoolsForms.util.Config.getApiKey());
+              EnvPoolsForms.util.Config.setApiKey(data.ApiKey);
+              console.log('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
+              
+              me.retreiveUserInfo();
+              var reportsStore = Ext.getStore('Reports');
+			if(!reportsStore) reportsStore = Ext.create('EnvPoolsForms.store.Reports');
+              
+				reportsStore.getProxy().setUsername(EnvPoolsForms.util.Config.getApiKey());
+              console.log('The Report store url is  : ' + reportsStore.getProxy().getUrl());
+              console.log('The Report store getUsername is  : ' + reportsStore.getProxy().getUsername());
+              console.log('The Report store getPassword is  : ' + reportsStore.getProxy().getPassword());
+
+              reportsStore.load();
+
+	        Ext.Viewport.setActiveItem(homePanel, this.slideLeftTransition);
+          },
+          failure: function(response)
+          {
+          	loginPanel.setMasked(false);
+              console.log('Login post request failed');
+              loginPanel.showSignInFailedMessage('Login failed. Please check email and password.');
+          }
+      });
+  },
+  
+  /**
+   * Performs User Retreival sequence.
+   */    
+  retreiveUserInfo: function()
+  {
+    console.log('retreiveUserInfo');
+
+    var me = this,
+        loginPanel = me.getLoginPanel();
+	
+      Ext.Ajax.request
+      ({
+          url: 'https://environmentalpools.wufoo.com/api/v3/users.json',
+          password: 'footastic',
+          username: EnvPoolsForms.util.Config.getApiKey(),
+          withCredentials: true,
+          useDefaultXhrHeader: false,
+          timeout: 3000,
+
+          success: function(response)
+          {
+              console.log('Get User post request was successful');
+              console.log(response.responseText);
+              var data = Ext.JSON.decode(response.responseText.trim());
+              
+              if ( data && data.Users.length >0)
+              {
+                 EnvPoolsForms.util.Config.setUserName(data.Users[0].User);
+              }
+              
+              console.log('The userName is : ' + EnvPoolsForms.util.Config.getUserName());
+          },
+          failure: function(response)
+          {
+          	loginPanel.setMasked(false);
+            console.log('Get User post request failed');
+            loginPanel.showSignInFailedMessage('Error occurred check connectivity');
+          }
+      });
+  },
+  
 }
 
 );

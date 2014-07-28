@@ -72,10 +72,10 @@ Ext.define("EnvPoolsForms.view.FormReport", {
         console.log("onCancelButtonTap");
         this.fireEvent("cancelReportCommand", this);
     },
-    setFormDataView: function(data) 
+    setFormDataView: function(data, formName) 
     {
         console.log("Now in FormReports.setFormDataView");      
-		var results = EnvPoolsForms.util.Config.generateHTMReport(data);
+		var results = EnvPoolsForms.util.Config.generateHTMReport(data, formName);
  		this.setHtml(results);		
     }    
 });

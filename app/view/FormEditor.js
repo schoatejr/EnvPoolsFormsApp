@@ -3,6 +3,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     requires: ["Ext.form.FieldSet", "Ext.field.Number", "Ext.field.DatePicker", "Ext.field.Checkbox", "Ext.field.TextArea", "EnvPoolsForms.view.DateTimePicker"],
     alias: "widget.formeditorview",
     xtype: "formeditorview",
+    formName: "",
     config: {
         scrollable: 'vertical',
         items: [
@@ -76,7 +77,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     },
     onSubmitButtonTap: function () {
         console.log("onSubmitButtonTap");
-        this.fireEvent("submitFormCommand", this);
+        this.fireEvent("submitFormCommand", this, this.formName);
     },
     onCancelButtonTap: function () {
         console.log("onCancelButtonTap");
@@ -85,6 +86,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     setFormDataView: function(formName, data) 
     {
     	var me = this;
+    	this.formName = formName;
         var isbaseFieldSet = false;    	
     	var jsonData  = JSON.parse(data);
     	var baseFieldSet = Ext.create('Ext.form.FieldSet',
@@ -111,6 +113,13 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
                 case "text":  //textfield
                     xType = "textfield";
 
+                    val = "";
+                    
+                    if ( (item.Title == "Entry Id") || (item.Title == "Updated By") || (item.Title == "Created By") )
+                    {
+                       break;
+                    }
+                    
                     baseFieldSet.add({
                         xtype: xType,
                         name: item.ID,
