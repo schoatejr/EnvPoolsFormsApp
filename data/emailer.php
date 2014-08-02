@@ -1,25 +1,32 @@
 <?php
-       // from the form
-       $name = trim(strip_tags($_POST['name']));
-       $to_email = trim(strip_tags($_POST['to_email']));
-       $from_email = trim(strip_tags($_POST['from_email']));
-       $subject = trim(strip_tags($_POST['subject']));
-       $message = htmlentities($_POST['message']);
+require './lib/class.PHPMailer.php';
 
-       // set here
-       //$subject = "Contact form submitted!";
-       //$to = 'your@email.com';
+$mail = new PHPMailer;
 
-       $body = <<<HTML
-$message
-HTML;
+$mail->isSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+$mail->Port = '465';
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->Username = $_POST['email_username'];                 // SMTP username
+$mail->Password = $_POST['email_password'];                           // SMTP password
+$mail->SMTPSecure = 'ssl';                            // Enable encryption, 'ssl' also accepted
 
-       $headers = "From: $from_email\r\n";
-       $headers .= "Content-type: text/html\r\n";
+$mail->From = $_POST['from_email'];
+$mail->FromName = 'Mailer';
+$mail->addAddress($_POST['to_email'], 'Andrew');     // Add a recipient
+$mail->addReplyTo($_POST['from_email'], 'Information');
 
-       // send the email
-       mail($to_email, $subject, $body, $headers);
+$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+$mail->isHTML(true);                                  // Set email format to HTML
 
-       // redirect afterwords, if needed
-       //header('Location: thanks.html');
+$mail->Subject = $_POST['subject'];
+$mail->Body    = $_POST['message'];
+$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+if(!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else {
+    echo 'Message has been sent';
+}
 ?>

@@ -1,0 +1,21 @@
+<form action="./emailer.php" method="post">
+  <label for="name">Name:</label>
+  <input type="text" name="name" id="name" />
+
+  <label for="Email">To Email:</label>
+  <input type="text" name="to_email" id="to_email" />
+
+  <label for="FromEmail">From Email:</label>
+  <input type="text" name="from_email" id="from_email" />
+
+  <label for="Subject">Subject:</label>
+  <input type="text" name="subject" id="subject" />
+
+  <label for="Message">Message:</label><br />
+  <textarea name="message" rows="20" cols="20" id="message"></textarea>
+
+  <input  type="hidden" name="email_username" value="schoatejr" />
+  <input  type="hidden" name="email_password" value="mother123" />
+
+  <input type="submit" name="submit" value="Submit" />
+</form>
