@@ -60,46 +60,86 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         EnvPoolsForms.util.Config.resetValues();
         Ext.Viewport.animateActiveItem(loginPanel, this.slideLeftTransition);
     },
+    gotoFormsTab: function () 
+    {
+        var homePanel = Ext.create('widget.homepanel');
+        homePanel.getComponent('maintabpanel').setActiveItem(1);
+        Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
+    },
     onCancelFormCommand: function () 
     {
         console.log("Event : onCancelFormCommand");
-        homePanel = Ext.create('widget.homepanel');
-        mainTabPanel = this.getMainTabPanel();
-        mainTabPanel.setActiveItem(1);
-        Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
+        this.gotoFormsTab();
     },
     onSubmitFormCommand: function (curForm, formName) 
     {
         console.log("Event : onSubmitFormCommand");
         console.log("The curForm is : " + curForm.getId());
-		        
-		var reportPanel = Ext.create('widget.reportpanel');
-		reportPanel.setFormDataView(curForm.getValues(true, true), formName);
-		console.log(curForm.getValues());
-		Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);
+
+        var reportPanel = Ext.create('widget.reportpanel');
+        reportPanel.setFormDataView(curForm.getValues(true, true), formName);
+        console.log(curForm.getValues());
+        Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);
     },
     onCancelReportCommand: function () 
     {
         console.log("Event : onCancelReportCommand");
-        //this.getNavView().pop();
-        //this.getMainView().pop();
-        homePanel = Ext.create('widget.homepanel');
-        mainTabPanel = this.getMainTabPanel();
-        mainTabPanel.setActiveItem(1);
-        Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
+        this.gotoFormsTab();
     },
     onSubmitReportCommand: function (curForm) 
     {
       console.log("Event : onSubmitReportCommand");
       console.log("The curForm is : " + curForm.getId());
+      var me = this;
       
+      var formEditPanel = me.getFormEditor();
 
-      var fieldsStore = Ext.getStore('Fields');
-      if(!fieldsStore) fieldsStore = Ext.create('EnvPoolsForms.store.Fields');
+      if(!formEditPanel)
+      {
+        formEditPanel = Ext.create('widget.formeditorview');
+      }
 
-      fieldsStore.each(function(test){
-        console.log(test.data.Title);
-    });
+      formEditPanel.setMasked({
+        xtype: 'loadmask',
+        fullscreen: true,
+        message: 'Sending Email...'
+      });
+
+      loginPanel.setMasked(true);
+
+      console.log("The html is : \n" + curForm.getHtml());
+      
+      Ext.Ajax.request
+      ({
+          url: 'http://www.choateinc.com/emailer.php',
+          params:
+          {
+              to_email: 'schoatejr@yahoo.com',
+              from_email: EnvPoolsForms.util.Config.getUserEmail(),
+//              from_email: 'schoatejr@gmail.com',
+              subject: 'Estimate for client',
+              message: curForm.getHtml()
+          },
+          withCredentials: false,
+          useDefaultXhrHeader: false,
+          timeout: 3000,
+
+          success: function(response)
+          {
+          	
+              console.log('Send email request was successful');
+              console.log('The response was : ' + response);
+          },
+          failure: function(response)
+          {
+            
+              console.log('Send email request failed');
+              console.log('The response was : ' + response);
+          }
+      });
+
+      formEditPanel.setMasked(false);
+
     },
     onEditFormCommand: function (list, record) 
     {
