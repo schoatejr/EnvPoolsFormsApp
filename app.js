@@ -46,7 +46,8 @@ Ext.application({
     [
         'Form',
         'Field',
-        'SubField'
+        'SubField',
+        'Report'
     ],
     
     icon: {
