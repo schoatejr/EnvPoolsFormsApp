@@ -4,6 +4,8 @@ Ext.define("EnvPoolsForms.view.FormReport", {
     alias: "widget.reportpanel",
     xtype: "reportpanel",
     config: {
+        record : {},
+        form : {},
         scrollable: 'vertical',
         items: [
                 {
@@ -40,7 +42,7 @@ Ext.define("EnvPoolsForms.view.FormReport", {
                             itemId: "cancelButton"
                         }
                 ]
-            },
+            }
         ],
         listeners: [
             {
@@ -70,12 +72,14 @@ Ext.define("EnvPoolsForms.view.FormReport", {
     },
     onCancelButtonTap: function () {
         console.log("onCancelButtonTap");
-        this.fireEvent("cancelReportCommand", this);
+        this.fireEvent("cancelReportCommand", this, this.config.form, this.config.record);
     },
-    setFormDataView: function(data, formName) 
+    setFormDataView: function(form, record, formName)
     {
-        console.log("Now in FormReports.setFormDataView");      
-		var results = EnvPoolsForms.util.Config.generateHTMReport(data, formName);
+        this.config.record = record;
+        this.config.form = form;
+        console.log("Now in FormReports.setFormDataView");
+		var results = EnvPoolsForms.util.Config.generateHTMReport(record.getData(), formName);
  		this.setHtml(results);		
     }    
 });

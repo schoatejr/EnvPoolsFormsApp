@@ -76,15 +76,38 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         console.log("Event : onSubmitFormCommand");
         console.log("The curForm is : " + curForm.getId());
 
-        var reportPanel = Ext.create('widget.reportpanel');
-        reportPanel.setFormDataView(curForm.getValues(true, true), formName);
-        console.log(curForm.getValues());
-        Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);
+        // get model instance "bound" to form
+        var rec = curForm.getRecord();
+
+        // transfer data from form fields to model fields
+        rec.set(curForm.getValues());
+
+        // perform validation checks
+        var errors = rec.validate();
+
+        if (!errors.isValid()) {
+            // at least one error occurred
+            var errorMsg = "";
+            errors.each(function (errorObj) {
+                errorMsg += errorObj.getMessage() + "<br>";
+                console.log("Error occurred " + errorObj.getMessage() + "\n");
+            });
+            Ext.Msg.alert("Errors", errorMsg);
+        } else {
+            // good-to-go -- commit changes back through the proxy
+            var reportPanel = Ext.create('widget.reportpanel');
+            reportPanel.setFormDataView(curForm, rec, formName);
+
+            console.log(curForm.getValues());
+            Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);
+        }
+
     },
-    onCancelReportCommand: function () 
+    onCancelReportCommand: function (curForm, formEditor, record)
     {
         console.log("Event : onCancelReportCommand");
-        this.gotoFormsTab();
+        Ext.Viewport.setActiveItem(formEditor, this.slideLeftTransition);
+        //this.gotoFormsTab();
     },
     onSubmitReportCommand: function (curForm) 
     {

@@ -47,10 +47,10 @@ Ext.define('EnvPoolsForms.util.Config', {
     {
         var key;
         console.log("Now in generateHTMReport");
-        
+
         var fieldsStore = Ext.getStore('Fields');
         if(!fieldsStore) fieldsStore = Ext.create('EnvPoolsForms.store.Fields');
-        
+
 var date = new Date();
 
 var htmltmplStr="";
@@ -59,7 +59,7 @@ htmltmplStr += "\n<html>";
 htmltmplStr += "\n  <head>";
 htmltmplStr += "\n  <head>";
 
-htmltmplStr += "\n  <style>"; 
+htmltmplStr += "\n  <style>";
 htmltmplStr += "\n  .tableClass";
 htmltmplStr += "\n  {";
 htmltmplStr += "\n  border:2px solid #a1a1a1;";
@@ -106,14 +106,14 @@ htmltmplStr += "\n      cellpadding=\"0\" cellspacing=\"0\">";
 htmltmplStr += "\n      <tbody style=\"width: 100%;\">";
 
 var counter = 0;
-for (key in params) 
+for (key in params)
 {
-    if (params.hasOwnProperty(key)) 
+    if (params.hasOwnProperty(key))
     {
         var aRecord = fieldsStore.findRecord('ID', key);
         var subFields;
         var curVal = params[key];
-        
+
         if (!aRecord || (aRecord.get('Title') == "Entry Id") || (aRecord.get('Title') == "Last Updated") || (aRecord.get('Title') == "Updated By") )
         {
         	continue;
@@ -135,7 +135,7 @@ for (key in params)
             }
         }
 
-        	
+
         if ((aRecord) && (aRecord._data) && (aRecord._data.SubFields) && (aRecord.get('ClassNames') === 'Table'))
         {
         	htmltmplStr += "\n        <tr>";
@@ -148,9 +148,9 @@ for (key in params)
         	htmltmplStr += "\n    <table style=\"margin: 0px; padding: 0px; display: table; border-collapse: separate; word-break: break-word; color: rgb(0, 0, 0); font-family: 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; width: 100%; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); font-size: 12px; line-height: 16.200000762939453px; background-color: rgb(255, 255, 255);\"";
         	htmltmplStr += "\n      cellpadding=\"0\" cellspacing=\"0\">";
         	htmltmplStr += "\n      <tbody style=\"width: 100%;\">";
-        	
+
             subFields = aRecord._data.SubFields;
-            for (var i = 0; i < subFields.length; i++) 
+            for (var i = 0; i < subFields.length; i++)
             {
             	var field = subFields[i];
                 if (field.ID)
@@ -161,7 +161,7 @@ for (key in params)
             	htmltmplStr += field.Label;
             	htmltmplStr += "\n		  <\/th>";
             	htmltmplStr += "\n          <td style=\"display: table-cell; border-spacing: 2px; vertical-align: top; width: 50%; color: rgb(51, 51, 51);  padding: 7px 9px 7px 0px; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(238, 238, 238);\">";
-            	htmltmplStr += params[field.ID]; 
+            	htmltmplStr += params[field.ID];
             	htmltmplStr += "\n		  <\/td>";
             	htmltmplStr += "\n		  <\/tr>";
 
