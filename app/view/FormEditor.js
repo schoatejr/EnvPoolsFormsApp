@@ -86,7 +86,7 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
     onAboutButtonTap: function () {
         console.log("onAboutButtonTap");
         this.fireEvent("aboutButtonTapCommand", this);
-    },      
+    },
     onLogoutButtonTap: function () {
         console.log("onLogoutButtonTap");
         this.fireEvent("logoutButtonTappedCommand", this);
@@ -124,9 +124,9 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
             var xType = "textfield";
             tmpBol = ( (item.IsRequired == null) || (item.IsRequired == 0)) ? false : true;
 
-	        	console.log('The element type is : ' + item.Type);
-	        	console.log('The title is : ' + item.Title);
-	        	console.log('The ID is : ' + item.ID);
+	        	//console.log('The element type is : ' + item.Type);
+	        	//console.log('The title is : ' + item.Title);
+	        	//console.log('The ID is : ' + item.ID);
 
             switch (wfDataType) {
                 case "text":  //textfield
@@ -201,8 +201,8 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
                     xType = "checkboxfield";
 
                     if ((item.ClassNames == 'Table') || (item.ClassNames == 'NumberTable')) {
-                        console.log('We found a special table');
-                        console.log('The subfields : ' + item.SubFields);
+                        //console.log('We found a special table');
+                        //console.log('The subfields : ' + item.SubFields);
 
                         if (!isbaseFieldSet) {
                             isbaseFieldSet = !isbaseFieldSet;
@@ -220,9 +220,9 @@ Ext.define("EnvPoolsForms.view.FormEditor", {
                                 }
                             );
 
-                            console.log('The number of subfields : ' + item.SubFields.length);
+                            //console.log('The number of subfields : ' + item.SubFields.length);
                             Ext.iterate(item.SubFields, function (innerItem) {
-                                    console.log('The inner field is : ' + innerItem.Label);
+                                    //console.log('The inner field is : ' + innerItem.Label);
 
 
                                     var tmpType = "textfield";

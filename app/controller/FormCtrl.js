@@ -92,7 +92,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     },    
     onAboutButtonTapCommand: function () 
     {
-        console.debug("Event : onAboutButtonTapCommand");
+        //console.debug("Event : onAboutButtonTapCommand");
         var msg = "";
         msg += "Environmental Pools" + "<br>";
         msg += "Forms App" + "<br>";
@@ -101,13 +101,13 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     },
     onBackReportButtonTapCommand: function (curForm, formEditor, record)
     {
-        console.debug("Event : onBackReportButtonTapCommand");
+        //console.debug("Event : onBackReportButtonTapCommand");
         Ext.Viewport.setActiveItem(formEditor, this.slideLeftTransition);
         //this.gotoFormsTab();
     },
     onLogoutTappedCommand: function () 
     {
-        console.debug("Event : onLogoutTappedCommand");
+        //console.debug("Event : onLogoutTappedCommand");
         var loginPanel = Ext.create('widget.debuginform');
         loginPanel.clearFields();
         EnvPoolsForms.util.Config.resetValues();
@@ -121,14 +121,14 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     },
     onCancelFormCommand: function () 
     {
-        console.debug("Event : onCancelFormCommand");
+        //console.debug("Event : onCancelFormCommand");
         this.hideKeyboard();
         this.gotoFormsTab();
     },
     onSubmitFormCommand: function (curForm, formName) 
     {
-        console.debug("Event : onSubmitFormCommand");
-        console.debug("The curForm is : " + curForm.getId());
+        //console.debug("Event : onSubmitFormCommand");
+        //console.debug("The curForm is : " + curForm.getId());
 
         // get model instance "bound" to form
         var rec = curForm.getRecord();
@@ -144,7 +144,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             var errorMsg = "";
             errors.each(function (errorObj) {
                 errorMsg += errorObj.getMessage() + "<br>";
-                console.debug("Error occurred " + errorObj.getMessage() + "\n");
+                //console.debug("Error occurred " + errorObj.getMessage() + "\n");
             });
             Ext.Msg.alert("Errors", errorMsg);
         } else {
@@ -152,7 +152,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             var reportPanel = Ext.create('widget.reportpanel');
             reportPanel.setFormDataView(curForm, rec, formName);
 
-            console.debug(curForm.getValues());
+            //console.debug(curForm.getValues());
             this.hideKeyboard();
             Ext.Viewport.setActiveItem(reportPanel, this.slideLeftTransition);
         }
@@ -171,13 +171,13 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     },    
     onCancelReportCommand: function ()
     {
-        console.debug("Event : onCancelReportCommand");
+        //console.debug("Event : onCancelReportCommand");
         this.gotoFormsTab();
     },
     onSubmitReportCommand: function (curForm) 
     {
-      console.debug("Event : onSubmitReportCommand");
-      console.debug("The curForm is : " + curForm.getId());
+      //console.debug("Event : onSubmitReportCommand");
+      //console.debug("The curForm is : " + curForm.getId());
       var me = this;
       
       var formEditPanel = me.getFormEditor();
@@ -195,7 +195,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 
       //loginPanel.setMasked(true);
 
-      console.debug("The html is : \n" + curForm.getHtml());
+      //console.debug("The html is : \n" + curForm.getHtml());
       
       Ext.Ajax.request
       ({
@@ -234,7 +234,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     },
     onEditFormCommand: function (list, record) 
     {
-        console.debug("Event : onEditFormCommand");
+        //console.debug("Event : onEditFormCommand");
         this.activateFormEditor(record);
     },
     activateFormEditor: function (record) 
@@ -242,8 +242,8 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         var me = this;
         var fieldsUrl = record.get('LinkFields');
         var formName = record.get('Name');
-        console.debug("Ready to activate form : " + formName);        
-        console.debug("Ready to call fields link : " + fieldsUrl);
+        //console.debug("Ready to activate form : " + formName);        
+        //console.debug("Ready to call fields link : " + fieldsUrl);
 
         Ext.Ajax.request
           ({
@@ -254,28 +254,28 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         useDefaultXhrHeader: false,
         success: function(response) 
         {
-            console.debug('get testForms was successful');
-            console.debug(response.responseText);
+            //console.debug('get testForms was successful');
+            //console.debug(response.responseText);
   			var formEditorView = Ext.create('widget.formeditorview');
   			formEditorView.setFormDataView(formName, response.responseText.trim());
 			Ext.Viewport.setActiveItem(formEditorView, this.slideLeftTransition);
         },
         failure: function(response) 
             {
-                console.debug('get testForms was failed');
+                //console.debug('get testForms was failed');
         }
       });
         
-        console.debug('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
+        //console.debug('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
         
         var fieldsStore = Ext.getStore('Fields');
         if(!fieldsStore) fieldsStore = Ext.create('EnvPoolsForms.store.Fields');
         
         fieldsStore.getProxy().setUsername(EnvPoolsForms.util.Config.getApiKey());
         fieldsStore.getProxy().setUrl(fieldsUrl);
-        console.debug('The Fields store url is  : ' + fieldsStore.getProxy().getUrl());
-        console.debug('The Fields store getUsername is  : ' + fieldsStore.getProxy().getUsername());
-        //console.debug('The Fields store getPassword is  : ' + fieldsStore.getProxy().getPassword());
+        //console.debug('The Fields store url is  : ' + fieldsStore.getProxy().getUrl());
+        //console.debug('The Fields store getUsername is  : ' + fieldsStore.getProxy().getUsername());
+        ////console.debug('The Fields store getPassword is  : ' + fieldsStore.getProxy().getPassword());
 
         fieldsStore.load();
     },
@@ -326,24 +326,24 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
           {
           	loginPanel.setMasked(false);
           	
-              console.debug('Login post request was successful');
-              console.debug(response.responseText);
+              //console.debug('Login post request was successful');
+              //console.debug(response.responseText);
               var data = Ext.JSON.decode(response.responseText.trim());
               
               EnvPoolsForms.util.Config.setUserEmail(email);
               
-              console.debug('The currentApi key is : ' + EnvPoolsForms.util.Config.getApiKey());
+              //console.debug('The currentApi key is : ' + EnvPoolsForms.util.Config.getApiKey());
               EnvPoolsForms.util.Config.setApiKey(data.ApiKey);
-              console.debug('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
+              //console.debug('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
               
               me.retreiveUserInfo();
               var reportsStore = Ext.getStore('Reports');
 			if(!reportsStore) reportsStore = Ext.create('EnvPoolsForms.store.Reports');
               
 				reportsStore.getProxy().setUsername(EnvPoolsForms.util.Config.getApiKey());
-              console.debug('The Report store url is  : ' + reportsStore.getProxy().getUrl());
-              console.debug('The Report store getUsername is  : ' + reportsStore.getProxy().getUsername());
-              //console.debug('The Report store getPassword is  : ' + reportsStore.getProxy().getPassword());
+              //console.debug('The Report store url is  : ' + reportsStore.getProxy().getUrl());
+              //console.debug('The Report store getUsername is  : ' + reportsStore.getProxy().getUsername());
+              ////console.debug('The Report store getPassword is  : ' + reportsStore.getProxy().getPassword());
 
               reportsStore.load();
               //reportsStore.autoLoad = true;
@@ -353,7 +353,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
           failure: function(response)
           {
           	loginPanel.setMasked(false);
-              console.debug('Login post request failed');
+              //console.debug('Login post request failed');
               loginPanel.showSignInFailedMessage('Login failed. Please check email and password.');
           }
       });
@@ -364,7 +364,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
    */    
   retreiveUserInfo: function()
   {
-    console.debug('retreiveUserInfo');
+    //console.debug('retreiveUserInfo');
 
     var me = this,
         loginPanel = me.getLoginPanel();
@@ -380,8 +380,8 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 
           success: function(response)
           {
-              console.debug('Get User post request was successful');
-              console.debug(response.responseText);
+              //console.debug('Get User post request was successful');
+              //console.debug(response.responseText);
               var data = Ext.JSON.decode(response.responseText.trim());
               
               if ( data && data.Users.length >0)
@@ -389,12 +389,12 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
                  EnvPoolsForms.util.Config.setUserName(data.Users[0].User);
               }
               
-              console.debug('The userName is : ' + EnvPoolsForms.util.Config.getUserName());
+              //console.debug('The userName is : ' + EnvPoolsForms.util.Config.getUserName());
           },
           failure: function(response)
           {
           	loginPanel.setMasked(false);
-            console.debug('Get User post request failed');
+            //console.debug('Get User post request failed');
             loginPanel.showSignInFailedMessage('Error occurred check connectivity');
           }
       });

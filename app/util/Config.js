@@ -46,7 +46,7 @@ Ext.define('EnvPoolsForms.util.Config', {
     generateHTMReport:function(params, formName)
     {
         var key;
-        console.log("Now in generateHTMReport");
+        //console.log("Now in generateHTMReport");
         
         var fieldsStore = Ext.getStore('Fields');
         if(!fieldsStore) fieldsStore = Ext.create('EnvPoolsForms.store.Fields');
@@ -157,7 +157,7 @@ for (key in params)
                 if (field.ID)
                 {
                 	htmltmplStr += "\n        <tr style=\"display: table-row; vertical-align: inherit; background-color: rgb(255, 255, 255);\">";
-            	   console.log('The field is : ' + field.Label + ' the value is : ' + params[field.ID]);
+            	   //console.log('The field is : ' + field.Label + ' the value is : ' + params[field.ID]);
                	htmltmplStr += "\n          <th style=\"font-weight: 700; display: table-cell; vertical-align: top; padding: 7px 9px; width: 50%; color:  rgb(34, 34, 34); text-align: left; border-top-width: 1px; border-top-style: solid; border-top-color: rgb(238, 238, 238);\">";
             	htmltmplStr += field.Label;
             	htmltmplStr += "\n		  <\/th>";
@@ -192,8 +192,8 @@ htmltmplStr += curVal;
 htmltmplStr += "\n		   <\/span>";
 htmltmplStr += "\n		  <\/td>";
 htmltmplStr += "\n        <\/tr>";
-                console.log('The field is : ' + aRecord);
-                console.log("The key is [" + key + "] value is [" + curVal + "] the type is [" +aRecord.get('Type') + "]");
+                //console.log('The field is : ' + aRecord);
+                //console.log("The key is [" + key + "] value is [" + curVal + "] the type is [" +aRecord.get('Type') + "]");
             }
         }
 
