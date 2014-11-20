@@ -4,6 +4,8 @@ Ext.define("EnvPoolsForms.view.FormReport", {
     alias: "widget.reportpanel",
     xtype: "reportpanel",
     config: {
+        record : {},
+        form : {},
         scrollable: 'vertical',
         items: [
                 {
@@ -12,14 +14,21 @@ Ext.define("EnvPoolsForms.view.FormReport", {
                     docked: 'top',
                     title: 'Environmental Pools',
                     items: [
-                    {
-                       ui: 'button',
-                       action: 'logoutCommand',
-                       itemId:"logoutButton",
-                       align: 'right',
-                       text: 'Logout'
-                    }
-                    ]
+                {
+                   ui: 'button',
+                   action: 'logoutCommand',
+                   itemId:"logoutButton",
+                   align: 'right',
+                   text: 'Logout'
+                },
+                {
+                  ui: 'button',
+                  iconCls: 'info',
+                  action: 'aboutCommand',
+                  itemId:"aboutButton",
+                  align: 'right'
+                }
+              ]
                 },                
             {
                 xtype: "toolbar",
@@ -31,6 +40,13 @@ Ext.define("EnvPoolsForms.view.FormReport", {
                             iconCls: "action",
                             text: "Submit",
                             itemId: "submitButton"
+                        },
+                        {
+                            xtype: "button",
+                            ui: "back",
+                            iconCls: "back",
+                            text: "Back",
+                            itemId: "backButton"
                         },
                         {
                             xtype: "button",
@@ -49,9 +65,19 @@ Ext.define("EnvPoolsForms.view.FormReport", {
                 fn: "onLogoutButtonTap"
             },
             {
+                delegate: "#aboutButton",
+                event: "tap",
+                fn: "onAboutButtonTap"
+            },
+            {
                 delegate: "#submitButton",
                 event: "tap",
                 fn: "onSubmitButtonTap"
+            },
+            {
+                delegate: "#backButton",
+                event: "tap",
+                fn: "onBackButtonTap"
             },
             {
                 delegate: "#cancelButton",
@@ -59,6 +85,14 @@ Ext.define("EnvPoolsForms.view.FormReport", {
                 fn: "onCancelButtonTap"
             }
         ]
+    },
+    onAboutButtonTap: function () {
+        console.log("onAboutButtonTap");
+        this.fireEvent("aboutButtonTapCommand", this);
+    },
+    onBackButtonTap: function () {
+        console.log("onBackButtonTap");
+        this.fireEvent("backReportButtonTapCommand", this, this.config.form, this.config.record);
     },
     onLogoutButtonTap: function () {
         console.log("onLogoutButtonTap");
@@ -72,10 +106,12 @@ Ext.define("EnvPoolsForms.view.FormReport", {
         console.log("onCancelButtonTap");
         this.fireEvent("cancelReportCommand", this);
     },
-    setFormDataView: function(data, formName) 
+    setFormDataView: function(form, record, formName)
     {
-        console.log("Now in FormReports.setFormDataView");      
-		var results = EnvPoolsForms.util.Config.generateHTMReport(data, formName);
+        this.config.record = record;
+        this.config.form = form;
+        console.log("Now in FormReports.setFormDataView");
+		var results = EnvPoolsForms.util.Config.generateHTMReport(record.getData(), formName);
  		this.setHtml(results);		
     }    
 });

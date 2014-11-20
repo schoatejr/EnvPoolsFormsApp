@@ -36,9 +36,9 @@ Ext.define('EnvPoolsForms.util.Config', {
     },
     resetValues:function()
     {
-    	setUserName("");
-    	setUserEmail("");
-    	setApiKey("");
+    	this.setUserName("");
+    	this.setUserEmail("");
+    	this.setApiKey("");
     },
     generateHTMLDataRow:function()
     {
@@ -91,12 +91,6 @@ htmltmplStr += "\n          <td style=\"display: table-cell; border-spacing: 2px
 htmltmplStr += formName;
 htmltmplStr += "\n		  <\/td>";
 htmltmplStr += "\n          <td style=\"display: table-cell; border-spacing: 2px;  width: 50%; padding: 0px 0px 7px;\">";
-htmltmplStr += "\n            <div style=\"display: block; float: right; font-style: normal; line-height: 42px; font-size: 22px; padding: 0px 0px 0px 10px; color: rgb(153, 153, 153);\">";
-htmltmplStr += "\n			";
-htmltmplStr += "\n			<b style=\"color: rgb(51, 51, 51);\">";
-htmltmplStr += "\n			";
-htmltmplStr += "\n			<\/b>";
-htmltmplStr += "\n			<\/div>";
 htmltmplStr += "\n          <\/td>";
 htmltmplStr += "\n        <\/tr>";
 htmltmplStr += "\n      <\/tbody>";
@@ -135,8 +129,15 @@ for (key in params)
             }
         }
 
+        if((aRecord.get('Type') == "time") || (aRecord.get('Type') == "date"))
+        {
+        	var tmpDate = new Date(curVal);
+        	var format = 'l, F d, Y g:i:s A';
+        	curVal = Ext.Date.format(tmpDate,format);
+        }
+        
         	
-        if ((aRecord) && (aRecord._data) && (aRecord._data.SubFields) && (aRecord.get('ClassNames') === 'Table'))
+        if ((aRecord) && (aRecord._data) && (aRecord._data.SubFields) && (aRecord.get('ClassNames') === 'Table') || (aRecord.get('ClassNames') === 'NameTable'))
         {
         	htmltmplStr += "\n        <tr>";
         	htmltmplStr += "\n        <td colspan='2'>";

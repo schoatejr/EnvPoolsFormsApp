@@ -33,7 +33,7 @@ Ext.define('EnvPoolsForms.view.LoginForm', {
                             labelWidth: '40%',
                             name: 'email',
                             required: true,
-                            value: 'schoatejr@yahoo.com',
+                            value: ''
                         },
                         {
                             xtype: 'passwordfield',
@@ -42,7 +42,7 @@ Ext.define('EnvPoolsForms.view.LoginForm', {
                             labelWidth: '40%',
                             name: 'password',
                             required: true,
-                            value: 'Mother!23'
+                            value: ''
                         }
                     ]
             },
@@ -73,7 +73,6 @@ onLoginButtonTap: function (evt, options) {
     var email = emailField.getValue(),
         password = passwordField.getValue();
 
-	console.log('In LoginForm Email: ' + email + '\n' + 'Password: ' + password);
     // Using a delayed task in order to give the hide animation above
     // time to finish before executing the next steps.
     var task = Ext.create('Ext.util.DelayedTask', function () {
@@ -93,7 +92,6 @@ showSignInFailedMessage: function (message)
 },
 clearFields: function (message) 
 {
- this.getComponent('loginFieldset').getComponent('userEmailField').setValue('');
  this.getComponent('loginFieldset').getComponent('userPasswordField').setValue('');
 }
 });

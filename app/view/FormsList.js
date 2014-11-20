@@ -1,6 +1,6 @@
 Ext.define("EnvPoolsForms.view.FormsList", {
     extend: "Ext.Container",
-    requires:"Ext.dataview.List",
+    requires:["Ext.dataview.List","Ext.plugin.PullRefresh"],
     xtype: 'formslist',
     alias: 'widget.formslist',
 
@@ -13,6 +13,19 @@ Ext.define("EnvPoolsForms.view.FormsList", {
             xtype: "list",
             store: "Reports",
             itemId:"formsList",
+            plugins: [
+                {
+                    xclass: 'plugin.pullrefreshfn',
+                    pullText: 'Pull down for more Reports...',
+                    refreshFn: function()
+                    {
+                        var reportsStore = Ext.getStore('Reports');
+                        if(!reportsStore) reportsStore = Ext.create('EnvPoolsForms.store.Reports');
+                        reportsStore.load();
+                    }
+                }
+
+            ],
             loadingText: "Loading Forms...",
             emptyText: "<div class=\"forms-list-empty-text\">No forms found.</div>",
             onItemDisclosure: true,

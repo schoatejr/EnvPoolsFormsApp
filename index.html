@@ -11,9 +11,9 @@
          */
         html, body {
             height: 100%;
-            background-color: #1985D0
+            background-color: #101B37
         }
-
+        
         #appLoadingIndicator {
             position: absolute;
             top: 50%;
@@ -27,7 +27,7 @@
             -webkit-animation-direction: linear;
         }
 
-        #appLoadingIndicator > * {
+        #appLoadingIndicator > div {
             background-color: #FFFFFF;
             display: inline-block;
             height: 30px;
@@ -54,6 +54,7 @@
 </head>
 <body>
     <div id="appLoadingIndicator">
+        <img id="startupImg" src="resources/startup/EnvPoolsLogo.png"/><br>
         <div></div>
         <div></div>
         <div></div>

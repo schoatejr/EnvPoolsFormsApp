@@ -23,6 +23,13 @@ Ext.define('EnvPoolsForms.view.HomePanel', {
                    itemId:"logoutButton",
                    align: 'right',
                    text: 'Logout'
+                },
+                {
+                  ui: 'button',
+                  iconCls: 'info',
+                  action: 'aboutCommand',
+                  itemId:"aboutButton",
+                  align: 'right'
                 }
                 ]
             },
@@ -33,15 +40,26 @@ Ext.define('EnvPoolsForms.view.HomePanel', {
                 {
                  animation: 'slide',
                  type: 'card'
-                },            	
+                }         	
             }
         ],
-        listeners: [{
+        listeners: [
+            {
+                delegate: "#aboutButton",
+                event: "tap",
+                fn: "onAboutButtonTap"
+            },                    
+           {
             delegate: "#logoutButton",
             event: "tap",
             fn: "onLogoutTapped"
-        }]
+           }
+           ]
     },
+    onAboutButtonTap: function () {
+        console.log("onAboutButtonTap");
+        this.fireEvent("aboutButtonTapCommand", this);
+    },    
     onLogoutTapped: function (evt, options) {
         console.log("Logout button tapped");
         this.fireEvent('logoutTappedCommand', this);

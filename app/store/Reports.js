@@ -36,7 +36,10 @@ Ext.define("EnvPoolsForms.store.Reports", {
                 }
             }
         },
-
+        filters: [{
+            property: 'IsPublic',
+            value: '1'
+        }],
         sorters: [{ property: 'DateCreated', direction: 'DESC'}],
         grouper: {
             sortProperty: "DateCreated",

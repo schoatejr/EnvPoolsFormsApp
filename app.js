@@ -24,13 +24,14 @@ Ext.application({
         'HomePanel',
         'LoginForm',
         'TabPanel',
-        'HomeTabPanel',
         'FormsTabPanel',
         'AboutTabPanel',
         'FormsList',
         'FormEditor',
         'FormReport',
-        'DateTimePicker'
+        'DateTimePicker',
+        'Main',
+        'Navigation'
     ],
     controllers: 
     [
@@ -46,7 +47,8 @@ Ext.application({
     [
         'Form',
         'Field',
-        'SubField'
+        'SubField',
+        'PullRefreshFn'
     ],
     
     icon: {
@@ -98,9 +100,7 @@ Ext.application({
             };
 
         // Initialize the main view
-        //Ext.Viewport.add(Ext.create('EnvPoolsForms.view.MainView'));
         Ext.Viewport.add([loginForm, homePanel, formEditorView, reportPanel]);
-        //Ext.Viewport.add([formListView, formEditorView]);
     },
 
     onUpdated: function() {

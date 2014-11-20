@@ -10,7 +10,7 @@ Ext.define('EnvPoolsForms.view.FormsTabPanel', {
         layout: 'fit',
         items: [
             {
-                xtype: 'formslist',
+                xtype: 'formslist'
             }
         ]
     }

@@ -23,6 +23,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "EnvPoolsForms.controller.FormCtrl": [],
   "EnvPoolsForms.model.Field": [],
   "EnvPoolsForms.model.Form": [],
+  "EnvPoolsForms.model.PullRefreshFn": [],
+  "EnvPoolsForms.model.Report": [],
   "EnvPoolsForms.model.SubField": [],
   "EnvPoolsForms.store.Fields": [],
   "EnvPoolsForms.store.Reports": [],
@@ -35,9 +37,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "EnvPoolsForms.view.FormsList": [],
   "EnvPoolsForms.view.FormsTabPanel": [],
   "EnvPoolsForms.view.HomePanel": [],
-  "EnvPoolsForms.view.HomeTabPanel": [],
   "EnvPoolsForms.view.LoginForm": [],
+  "EnvPoolsForms.view.Main": [],
   "EnvPoolsForms.view.MainView": [],
+  "EnvPoolsForms.view.Navigation": [],
+  "EnvPoolsForms.view.SlideMenu": [],
   "EnvPoolsForms.view.TabPanel": [],
   "Ext.AbstractComponent": [],
   "Ext.AbstractManager": [],
@@ -767,6 +771,11 @@ Ext.ClassManager.addNameAliasMappings({
   "EnvPoolsForms.controller.FormCtrl": [],
   "EnvPoolsForms.model.Field": [],
   "EnvPoolsForms.model.Form": [],
+  "EnvPoolsForms.model.PullRefreshFn": [
+    "plugin.pullrefreshfn",
+    "widget.refreshFn"
+  ],
+  "EnvPoolsForms.model.Report": [],
   "EnvPoolsForms.model.SubField": [],
   "EnvPoolsForms.store.Fields": [],
   "EnvPoolsForms.store.Reports": [],
@@ -797,14 +806,21 @@ Ext.ClassManager.addNameAliasMappings({
   "EnvPoolsForms.view.HomePanel": [
     "widget.homepanel"
   ],
-  "EnvPoolsForms.view.HomeTabPanel": [
-    "widget.hometabpanel"
-  ],
   "EnvPoolsForms.view.LoginForm": [
     "widget.loginform"
   ],
+  "EnvPoolsForms.view.Main": [
+    "widget.main",
+    "widget.mainpanel"
+  ],
   "EnvPoolsForms.view.MainView": [
     "widget.mainview"
+  ],
+  "EnvPoolsForms.view.Navigation": [
+    "widget.navigation"
+  ],
+  "EnvPoolsForms.view.SlideMenu": [
+    "widget.slidemenu"
   ],
   "EnvPoolsForms.view.TabPanel": [
     "widget.maintabpanel"
