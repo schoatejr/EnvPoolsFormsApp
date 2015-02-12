@@ -14,25 +14,12 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
                homePanel: 'homepanel',
             mainTabPanel: 'homepanel #maintabpanel',
               reportPanel: 'reportpanel',
-            	  mainPanel: 'mainpanel',
-        navigation : 'navigation',
-        navBtn : 'button[name="nav_btn"]'            	  
+            photosList: 'photoslist',
+            imageViewerPanel: 'imageviewerpanel'
         },
         control: 
 	        {
-	            navBtn :
-	        {
-	            tap : 'toggleNav'
-	        },
-	
-	        navigation :
-	        {
-	            itemtap : function(list, index, target, record)
-	            {
-	                this.toggleNav();
-	            }
-	        },        	
-        	formEditor : 
+        	formEditor :
         	{
             // The commands fired by the Form Editor container.
         		submitFormCommand: 'onSubmitFormCommand',
@@ -63,8 +50,16 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
           		cancelReportCommand: 'onCancelReportCommand',
              	logoutButtonTappedCommand: 'onLogoutTappedCommand',
             	aboutButtonTapCommand: 'onAboutButtonTapCommand'
-            }
-            
+            },
+            photosList:
+            {
+                viewPhotoCommand: 'onViewPhotoCommand',
+                reloadFilesCommand : 'onReloadFilesCommand'
+            },
+            imageViewerPanel:
+            {
+                backPhotosButtonTapCommand: 'onBackPhotosButtonTapCommand'
+            },
         }
     },
 
@@ -72,25 +67,18 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     slideLeftTransition: { type: 'slide', direction: 'left' },
     slideRightTransition: { type: 'slide', direction: 'right' },
 
-    /**
-     * Toggle the slide navogation view
-     */
-    toggleNav : function()
-    {
-        var me = this, mainEl = me.getMainPanel().element;
+        onReloadFilesCommand: function()
+        {
+           this.initializeFoldersData();
+        },
+        onViewPhotoCommand: function(imageName)
+        {
+            var imageviewerpanel = Ext.create('widget.imageviewerpanel');
+            imageviewerpanel.setImageSrc("http://www.choateinc.com/Photos/" + imageName);
+            Ext.Viewport.animateActiveItem(imageviewerpanel, this.slideLeftTransition);
 
-        if (mainEl.hasCls('out'))
-        {
-            mainEl.removeCls('out').addCls('in');
-            me.getMainPanel().setMasked(false);
-        }
-        else
-        {
-            mainEl.removeCls('in').addCls('out');
-            me.getMainPanel().setMasked(true);
-        }
-    },    
-    onAboutButtonTapCommand: function () 
+        },
+    onAboutButtonTapCommand: function ()
     {
         //console.debug("Event : onAboutButtonTapCommand");
         var msg = "";
@@ -99,31 +87,36 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         msg += "Version 1.0" + "<br>";
         Ext.Msg.alert("", msg);
     },
+
+    onBackPhotosButtonTapCommand: function ()
+    {
+        this.gotoFormsTab(1);
+    },
     onBackReportButtonTapCommand: function (curForm, formEditor, record)
     {
         //console.debug("Event : onBackReportButtonTapCommand");
         Ext.Viewport.setActiveItem(formEditor, this.slideLeftTransition);
-        //this.gotoFormsTab();
+        //this.gotoFormsTab(0);
     },
-    onLogoutTappedCommand: function () 
+    onLogoutTappedCommand: function ()
     {
         //console.debug("Event : onLogoutTappedCommand");
-        var loginPanel = Ext.create('widget.debuginform');
+        var loginPanel = Ext.create('widget.loginform');
         loginPanel.clearFields();
         EnvPoolsForms.util.Config.resetValues();
         Ext.Viewport.animateActiveItem(loginPanel, this.slideLeftTransition);
     },
-    gotoFormsTab: function () 
+    gotoFormsTab: function (tabNumber)
     {
         var homePanel = Ext.create('widget.homepanel');
-//        homePanel.getComponent('maintabpanel').setActiveItem(0);
+        homePanel.setSelectedTab(tabNumber);
         Ext.Viewport.animateActiveItem(homePanel, this.slideLeftTransition);
     },
     onCancelFormCommand: function () 
     {
         //console.debug("Event : onCancelFormCommand");
         this.hideKeyboard();
-        this.gotoFormsTab();
+        this.gotoFormsTab(0);
     },
     onSubmitFormCommand: function (curForm, formName) 
     {
@@ -172,7 +165,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     onCancelReportCommand: function ()
     {
         //console.debug("Event : onCancelReportCommand");
-        this.gotoFormsTab();
+        this.gotoFormsTab(0);
     },
     onSubmitReportCommand: function (curForm) 
     {
@@ -199,13 +192,20 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
       
       Ext.Ajax.request
       ({
-          //url: 'http://www.choateinc.com/emailer.php',
           url: 'http://www.environmentalpools.com/emailer.php',
           params:
           {
+              // This is the email address we are sending our report to
               to_email: 'job_work_orders@environmentalpools.com',
-              from_email: EnvPoolsForms.util.Config.getUserEmail(),              
-              subject: 'Estimate for client ',
+
+              // This is the email address of an account on the server that will
+              // be sending the email.
+              from_email: 'job_work_orders@environmentalpools.com',
+
+              // This is the email address that will show up when the recipient of the
+              // report click 'Reply'
+              replyTo_email: EnvPoolsForms.util.Config.getUserEmail(),
+              subject: 'Job Work Order ',
               message: curForm.getHtml()
           },
           withCredentials: false,
@@ -218,7 +218,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
               console.debug('Send email request was successful');
               console.debug('The response was : ' + response);
               Ext.Msg.alert("", "Report sent!")
-              me.gotoFormsTab();
+              me.gotoFormsTab(0);
           },
           failure: function(response)
           {
@@ -284,17 +284,74 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 	    var loginView = this.getLoginPanel();
 	    loginView.showSignInFailedMessage(message);
 	    loginView.setMasked(false);
-	},    
+	},
+
+   populateDirectoryStoreByName: function(record)
+   {
+       var files = record.files();
+       var dirName = record.data.name;
+
+       console.log('Folder Name: ' + dirName);
+       if (files.data.length > 0)
+       {
+           if(record.data.name === dirName)
+           {
+               var store = Ext.getStore(dirName);
+               if(!store)
+               {
+                   store = Ext.create('EnvPoolsForms.store.' + dirName);
+               }
+
+               store.clearData();
+               Ext.each(files.data.items, function (file)
+               {
+                   var newRecord = new EnvPoolsForms.model.File({name: file.data.name, type: file.data.type, isvisible: file.data.isvisible});
+                   store.add(newRecord);
+               });
+           }
+       }
+   },
+
+   initializeFoldersData: function()
+   {
+
+       var me = this;
+       var folderStores = Ext.getStore('Folders');
+       folderStores.load(function(records, options, success)
+       {
+
+           //console.log(records);
+           if (success)
+           {
+               Ext.each(records, function (record)
+               {
+                   me.populateDirectoryStoreByName(record);
+
+               });
+           }
+       });
+   },
 
   /**
    * Performs login info sequence.
    */    
-  onLoginButtonTapped: function(view, email, password)
+  onLoginButtonTapped: function(view, email, password, saveCredentials)
   {
     var me = this,
         loginPanel = me.getLoginPanel();
     var homePanel = Ext.create('widget.homepanel');
-    var mainPanel = Ext.create('widget.mainpanel');
+
+      var userStore = Ext.getStore('Users');
+      if(!userStore) userStore = Ext.create('EnvPoolsForms.store.Users');
+      if (userStore.getCount() > 0)
+      {
+          console.log("There was a record for the email and password");
+
+          var newRecord = userStore.getAt(0);
+          var emailVal = newRecord.email;
+          var passwordVal = newRecord.password;
+          console.log("The email is [" + newRecord.email + "] the password is [" + newRecord.password + "]");
+      }
 
     if (email.length === 0 || password.length === 0) {
 
@@ -324,23 +381,25 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
 
           success: function(response)
           {
-          	loginPanel.setMasked(false);
-          	
+              loginPanel.setMasked(false);
+
               //console.debug('Login post request was successful');
               //console.debug(response.responseText);
               var data = Ext.JSON.decode(response.responseText.trim());
-              
+
               EnvPoolsForms.util.Config.setUserEmail(email);
-              
+
               //console.debug('The currentApi key is : ' + EnvPoolsForms.util.Config.getApiKey());
               EnvPoolsForms.util.Config.setApiKey(data.ApiKey);
               //console.debug('The new APIKey is  : ' + EnvPoolsForms.util.Config.getApiKey());
-              
+
               me.retreiveUserInfo();
+              me.initializeFoldersData();
+
               var reportsStore = Ext.getStore('Reports');
-			if(!reportsStore) reportsStore = Ext.create('EnvPoolsForms.store.Reports');
-              
-				reportsStore.getProxy().setUsername(EnvPoolsForms.util.Config.getApiKey());
+              if (!reportsStore) reportsStore = Ext.create('EnvPoolsForms.store.Reports');
+
+              reportsStore.getProxy().setUsername(EnvPoolsForms.util.Config.getApiKey());
               //console.debug('The Report store url is  : ' + reportsStore.getProxy().getUrl());
               //console.debug('The Report store getUsername is  : ' + reportsStore.getProxy().getUsername());
               ////console.debug('The Report store getPassword is  : ' + reportsStore.getProxy().getPassword());
@@ -348,6 +407,19 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
               reportsStore.load();
               //reportsStore.autoLoad = true;
 
+              //our Store automatically picks up the LocalStorageProxy defined on the Search model
+              var userStore = Ext.getStore('Users');
+              if (!userStore) userStore = Ext.create('EnvPoolsForms.store.Users');
+              userStore.clearData();
+
+            if (saveCredentials.getChecked())
+            {
+              var newRecord = new EnvPoolsForms.model.User({email: email, password: password});
+              userStore.add(newRecord);
+            }
+
+            //finally, save our Search data to localStorage
+              userStore.sync();
 	        Ext.Viewport.setActiveItem(homePanel, this.slideLeftTransition);
           },
           failure: function(response)
@@ -358,48 +430,66 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
           }
       });
   },
-  
-  /**
-   * Performs User Retreival sequence.
-   */    
-  retreiveUserInfo: function()
-  {
-    //console.debug('retreiveUserInfo');
 
-    var me = this,
-        loginPanel = me.getLoginPanel();
-	
-      Ext.Ajax.request
-      ({
-          url: 'https://environmentalpools.wufoo.com/api/v3/users.json',
-          password: 'footastic',
-          username: EnvPoolsForms.util.Config.getApiKey(),
-          withCredentials: true,
-          useDefaultXhrHeader: false,
-          timeout: 3000,
+        /**
+         * Performs User Retreival sequence.
+         */
+        retreiveUserInfo: function()
+        {
+            //console.debug('retreiveUserInfo');
 
-          success: function(response)
-          {
-              //console.debug('Get User post request was successful');
-              //console.debug(response.responseText);
-              var data = Ext.JSON.decode(response.responseText.trim());
-              
-              if ( data && data.Users.length >0)
-              {
-                 EnvPoolsForms.util.Config.setUserName(data.Users[0].User);
-              }
-              
-              //console.debug('The userName is : ' + EnvPoolsForms.util.Config.getUserName());
-          },
-          failure: function(response)
-          {
-          	loginPanel.setMasked(false);
-            //console.debug('Get User post request failed');
-            loginPanel.showSignInFailedMessage('Error occurred check connectivity');
-          }
-      });
-  }
-  
+            var me = this,
+                loginPanel = me.getLoginPanel();
+
+            Ext.Ajax.request
+            ({
+                url: 'https://environmentalpools.wufoo.com/api/v3/users.json',
+                password: 'footastic',
+                username: EnvPoolsForms.util.Config.getApiKey(),
+                withCredentials: true,
+                useDefaultXhrHeader: false,
+                timeout: 3000,
+
+                success: function(response)
+                {
+                    //console.debug('Get User post request was successful');
+                    //console.debug(response.responseText);
+                    var data = Ext.JSON.decode(response.responseText.trim());
+
+                    if ( data && data.Users.length >0)
+                    {
+                        EnvPoolsForms.util.Config.setUserName(data.Users[0].User);
+                    }
+
+                    //console.debug('The userName is : ' + EnvPoolsForms.util.Config.getUserName());
+                },
+                failure: function(response)
+                {
+                    loginPanel.setMasked(false);
+                    //console.debug('Get User post request failed');
+                    loginPanel.showSignInFailedMessage('Error occurred check connectivity');
+                }
+            });
+        },
+
+
+        /**
+         * Performs Folders Retreival sequence.
+         */
+        retreiveFoldersInfo: function()
+        {
+            //console.debug('retreiveFoldersInfo');
+
+            var me = this;
+
+            var filesStore = Ext.getStore('Files');
+            if(!filesStore)
+            {
+                filesStore = Ext.create('EnvPoolsForms.store.Reports');
+            }
+            filesStore.load();
+        }
+
 }
 
 );

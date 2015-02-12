@@ -31,6 +31,7 @@ Ext.define("EnvPoolsForms.store.Reports", {
             },
             listeners:{
                 exception:function(proxy, response, orientation){
+                    
                     console.log('Failure Notification : ' + response.responseText);
                     Ext.Msg.alert('Loading failed', response.statusText);
                 }
@@ -53,5 +54,5 @@ Ext.define("EnvPoolsForms.store.Reports", {
                 }
             }
         }
-    },
+    }
 });

@@ -38,10 +38,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "EnvPoolsForms.view.FormsTabPanel": [],
   "EnvPoolsForms.view.HomePanel": [],
   "EnvPoolsForms.view.LoginForm": [],
-  "EnvPoolsForms.view.Main": [],
   "EnvPoolsForms.view.MainView": [],
-  "EnvPoolsForms.view.Navigation": [],
-  "EnvPoolsForms.view.SlideMenu": [],
   "EnvPoolsForms.view.TabPanel": [],
   "Ext.AbstractComponent": [],
   "Ext.AbstractManager": [],
@@ -809,18 +806,8 @@ Ext.ClassManager.addNameAliasMappings({
   "EnvPoolsForms.view.LoginForm": [
     "widget.loginform"
   ],
-  "EnvPoolsForms.view.Main": [
-    "widget.main",
-    "widget.mainpanel"
-  ],
   "EnvPoolsForms.view.MainView": [
     "widget.mainview"
-  ],
-  "EnvPoolsForms.view.Navigation": [
-    "widget.navigation"
-  ],
-  "EnvPoolsForms.view.SlideMenu": [
-    "widget.slidemenu"
   ],
   "EnvPoolsForms.view.TabPanel": [
     "widget.maintabpanel"

@@ -4,6 +4,7 @@ Ext.define('EnvPoolsForms.util.Config', {
    	apiKey : '',
    	userEmail: '',
    	userName: '',
+    photos:[],
    	   	
     constructor: function(config) 
     {
@@ -40,6 +41,15 @@ Ext.define('EnvPoolsForms.util.Config', {
     	this.setUserEmail("");
     	this.setApiKey("");
     },
+    setPhotos:function(newPhotos)
+    {
+        this.photos = newPhotos;
+    },
+    getPhotos:function()
+    {
+        return this.photos;
+    },
+
     generateHTMLDataRow:function()
     {
     },

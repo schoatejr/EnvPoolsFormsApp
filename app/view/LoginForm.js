@@ -43,6 +43,15 @@ Ext.define('EnvPoolsForms.view.LoginForm', {
                             name: 'password',
                             required: true,
                             value: ''
+                        },
+                        {
+                            xtype: 'checkboxfield',
+                            itemId: 'saveCredentialsField',
+                            label: 'Remember Credentials',
+                            labelWidth: '40%',
+                            name: 'credentials',
+                            required: false,
+                            value: false
                         }
                     ]
             },
@@ -59,14 +68,38 @@ listeners: [{
     event: "tap",
     fn: "onLoginButtonTap"
 }]
-    },    
+    },
+    initialize: function()
+    {
+        //our Store automatically picks up the LocalStorageProxy defined on the Search model
+        var userStore = Ext.getStore('Users');
+        if(!userStore) userStore = Ext.create('EnvPoolsForms.store.Users');
+        if (userStore.getCount() > 0)
+        {
+            console.log("There was a record for the email and password");
+
+            var newRecord = userStore.getAt(0).getData();
+            var emailVal = newRecord.email;
+            var passwordVal = newRecord.password;
+            console.log("The email is [" + newRecord.email + "] the password is [" + newRecord.password + "]");
+
+            this.setValues({
+                email: emailVal,
+                password: passwordVal,
+                credentials:true
+            });
+        }
+
+    },
+
 onLoginButtonTap: function (evt, options) {
 
     var me = this;
 
     var emailField = me.down('#userEmailField'),
         passwordField = me.down('#userPasswordField'),
-        label = me.down('#signInFailedLabel');
+        label = me.down('#signInFailedLabel'),
+        saveCredentials = me.down('#saveCredentialsField');
 
     label.hide();
 
@@ -79,7 +112,7 @@ onLoginButtonTap: function (evt, options) {
 
         label.setHtml('');
 
-        me.fireEvent('loginButtonTappedCommand', me, email, password);
+        me.fireEvent('loginButtonTappedCommand', me, email, password, saveCredentials);
     });
 
     task.delay(500);
@@ -92,6 +125,6 @@ showSignInFailedMessage: function (message)
 },
 clearFields: function (message) 
 {
- this.getComponent('loginFieldset').getComponent('userPasswordField').setValue('');
+ //this.getComponent('loginFieldset').getComponent('userPasswordField').setValue('');
 }
 });

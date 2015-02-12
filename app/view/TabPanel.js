@@ -21,6 +21,11 @@ Ext.define('EnvPoolsForms.view.TabPanel', {
                 title: 'Forms',
                 iconCls: 'action',
                 xtype: 'formstabpanel'
+            },
+            {
+                title: 'Photos',
+                iconCls: 'action',
+                xtype: 'photostabpanel'
             }
         ]
     }

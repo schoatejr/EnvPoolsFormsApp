@@ -1,11 +1,12 @@
-Ext.define('EnvPoolsForms.view.HomePanel', {
+Ext.define('EnvPoolsForms.view.ImageViewerPanel', {
     extend: 'Ext.Panel',
-    alias: 'widget.homepanel',
-    xtype: 'homepanel',
+    alias: 'widget.imageviewerpanel',
+    xtype: 'imageviewerpanel',
 
     requires: [
                'Ext.TitleBar',
-               'Ext.Toolbar'
+               'Ext.Toolbar',
+               'Ext.Img'
     ],
 
     config: {
@@ -18,11 +19,18 @@ Ext.define('EnvPoolsForms.view.HomePanel', {
                 title: 'Environmental Pools',
                 items: [
                 {
-                   ui: 'button',
-                   action: 'logoutCommand',
-                   itemId:"logoutButton",
-                   align: 'right',
-                   text: 'Logout'
+                    xtype: "button",
+                    ui: "back",
+                    iconCls: "back",
+                    text: "Back",
+                    itemId: "backButton"
+                },
+                {
+                    ui: 'button',
+                    action: 'logoutCommand',
+                    itemId:"logoutButton",
+                    align: 'right',
+                    text: 'Logout'
                 },
                 {
                   ui: 'button',
@@ -34,38 +42,45 @@ Ext.define('EnvPoolsForms.view.HomePanel', {
                 ]
             },
             {
-                xtype: 'maintabpanel',
-                itemId:"maintabpanel",
-                layout: 
-                {
-                 animation: 'slide',
-                 type: 'card'
-                }         	
+                xtype: 'img',
+                itemId:"imageItem",
+                src: 'http://www.choateinc.com/Photos/image1.jpg'
             }
         ],
         listeners: [
             {
+                delegate: "#backButton",
+                event: "tap",
+                fn: "onBackButtonTap"
+            },
+            {
                 delegate: "#aboutButton",
                 event: "tap",
                 fn: "onAboutButtonTap"
-            },                    
-           {
+            },
+            {
             delegate: "#logoutButton",
             event: "tap",
             fn: "onLogoutTapped"
            }
            ]
     },
+    onBackButtonTap: function () {
+        console.log("onBackButtonTap");
+        this.fireEvent("backPhotosButtonTapCommand", this);
+    },
     onAboutButtonTap: function () {
         console.log("onAboutButtonTap");
         this.fireEvent("aboutButtonTapCommand", this);
-    },
+    },    
     onLogoutTapped: function (evt, options) {
         console.log("Logout button tapped");
         this.fireEvent('logoutTappedCommand', this);
     },
-    setSelectedTab: function (tabNumber) {
-        this.down('#maintabpanel').setActiveItem(tabNumber);
+    setImageSrc: function (imgSrc)
+    {
+        var image = this.down('#imageItem');
+        image.setSrc(imgSrc);
     }
 
 });

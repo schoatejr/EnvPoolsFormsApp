@@ -22,7 +22,7 @@ Ext.define("EnvPoolsForms.model.Form", {
             { name: 'EntryCountToday', type: 'int' }
         ],
         validations: [
-            { type: 'presence', field: 'name' , message: 'Please enter a namee for this form.' },
+            { type: 'presence', field: 'name' , message: 'Please enter a name for this form.' },
             { type: 'presence', field: 'DateCreated' },
             { type: 'presence', field: 'Hash'}
         ]

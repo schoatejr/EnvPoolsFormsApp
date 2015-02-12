@@ -1,0 +1,53 @@
+<root>
+  <folders>
+  
+    <folder>
+	  <name>Photos</name>
+	  <files>
+	    <file>
+		  <name>image1.jpg</name>
+		  <type>jpg</type>
+          <isvisible>true</isvisible>		  
+		</file>
+	    <file>
+		  <name>image2.gif</name>
+		  <type>gif</type>
+          <isvisible>true</isvisible>		  
+		</file>
+	  </files>
+	</folder>
+
+    <folder>
+	  <name>Specs</name>
+	  <files>
+	    <file>
+		  <name>spec1.pdf</name>
+		  <type>pdf</type>
+          <isvisible>true</isvisible>		  
+		</file>
+	    <file>
+		  <name>spec2.doc</name>
+		  <type>doc</type>
+          <isvisible>true</isvisible>		  
+		</file>
+	  </files>
+	</folder>
+	
+    <folder>
+	  <name>Videos</name>
+	  <files>
+	    <file>
+		  <name>video1.mpg4</name>
+		  <type>mpg4</type>
+          <isvisible>true</isvisible>		  
+		</file>
+	    <file>
+		  <name>video2.vid</name>
+		  <type>vid</type>
+          <isvisible>true</isvisible>		  
+		</file>
+	  </files>
+	</folder>
+	
+  </folders>
+</root>

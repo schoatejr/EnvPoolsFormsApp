@@ -30,8 +30,9 @@ Ext.application({
         'FormEditor',
         'FormReport',
         'DateTimePicker',
-        'Main',
-        'Navigation'
+        'PhotosTabPanel',
+        'PhotosList',
+        'ImageViewerPanel'
     ],
     controllers: 
     [
@@ -40,7 +41,12 @@ Ext.application({
     stores: 
     [
         'Reports',
-        'Fields'
+        'Fields',
+        'Folders',
+        'Users',
+        'Photos',
+        'Videos',
+        'Specs'
     ],
 
     models: 
@@ -48,7 +54,11 @@ Ext.application({
         'Form',
         'Field',
         'SubField',
-        'PullRefreshFn'
+        'Report',
+        'PullRefreshFn',
+        'File',
+        'Folder',
+        'User'
     ],
     
     icon: {
