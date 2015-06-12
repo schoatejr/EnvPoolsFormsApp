@@ -20,10 +20,10 @@ $htmlStr .=
 "\t </files>\n".
 "</folder>\n".
 " <folder>\n".
-"\t <name>Specs</name>\n".
+"\t <name>Plans</name>\n".
 "\t <files>\n";
 
-foreach (glob("./Specs/*") as $filename) {
+foreach (glob("./Plans/*") as $filename) {
 	$tmpFileName = substr( $filename, ( strrpos( $filename, "\\" ) +1 ) );
 	$tmpFileExt = substr( $filename, ( strrpos( $filename, "." ) +1 ) );
 

@@ -1,6 +1,6 @@
 Ext.define("EnvPoolsForms.view.FormsList", {
     extend: "Ext.Container",
-    requires:["Ext.dataview.List","Ext.plugin.PullRefresh"],
+    requires: ["Ext.dataview.List", "Ext.plugin.PullRefresh"],
     xtype: 'formslist',
     alias: 'widget.formslist',
 
@@ -12,15 +12,18 @@ Ext.define("EnvPoolsForms.view.FormsList", {
         items: [{
             xtype: "list",
             store: "Reports",
-            itemId:"formsList",
+            itemId: "formsList",
             plugins: [
                 {
                     xclass: 'plugin.pullrefreshfn',
                     pullText: 'Pull down for more Reports...',
-                    refreshFn: function()
+                    refreshFn: function ()
                     {
                         var reportsStore = Ext.getStore('Reports');
-                        if(!reportsStore) reportsStore = Ext.create('EnvPoolsForms.store.Reports');
+                        if (!reportsStore)
+                        {
+                            reportsStore = Ext.create('EnvPoolsForms.store.Reports');
+                        }
                         reportsStore.load();
                     }
                 }
@@ -31,14 +34,17 @@ Ext.define("EnvPoolsForms.view.FormsList", {
             onItemDisclosure: true,
             itemTpl: "<div class=\"list-item-Name\">{Name}</div>"
         }],
-        listeners: [{
-            delegate: "#formsList",
-            event: "disclose",
-            fn: "onFormsListDisclose"
-        }]
-    },    
-    onFormsListDisclose: function (list, record, target, index, evt, options) {
-        console.log("Go to Report : " + record.get('Name'));
+        listeners: [
+            {
+                delegate: "#formsList",
+                event: "itemtap",
+                fn: "onItemTap"
+            }
+        ]
+    },
+    onItemTap: function (list, index, item, record)
+    {
+        console.log("Go to Report : " + record.data.Name);
         this.fireEvent('editFormCommand', this, record);
     }
 });

@@ -1,4 +1,4 @@
-Ext.define("EnvPoolsForms.store.Specs", {
+Ext.define("EnvPoolsForms.store.Plans", {
     extend: "Ext.data.Store",
     requires: [
                'Ext.data.reader.Xml',
@@ -7,12 +7,12 @@ Ext.define("EnvPoolsForms.store.Specs", {
              ],
     config: {
         model: "EnvPoolsForms.model.File",
-        storeId : 'Specs',
+        storeId : 'Plans',
         autoLoad: false,
         listeners : {
             load : function (store)
             {
-                console.log("The Specs store count is : " + store.getCount());
+                console.log("The Plans store count is : " + store.getCount());
             }
         },
         grouper: {

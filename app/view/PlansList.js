@@ -1,8 +1,8 @@
-Ext.define("EnvPoolsForms.view.PhotosList", {
+Ext.define("EnvPoolsForms.view.PlansList", {
     extend: "Ext.Container",
     requires:["Ext.dataview.List","Ext.plugin.PullRefresh"],
-    xtype: 'photoslist',
-    alias: 'widget.photoslist',
+    xtype: 'planslist',
+    alias: 'widget.planslist',
 
 
     config: {
@@ -11,13 +11,13 @@ Ext.define("EnvPoolsForms.view.PhotosList", {
         },
         items: [{
             xtype: "list",
-            store: "Photos",
-            itemId:"photosList",
+            store: "Plans",
+            itemId:"plansList",
             plugins: [
                 {
                     xclass: 'plugin.pullrefreshfn',
-                    itemId: "photoslistpulldown",
-                    pullText: 'Pull down for more Reports...',
+                    itemId: "planslistpulldown",
+                    pullText: 'Pull down for more Plans...',
                     refreshFn: function()
                     {
                         this.parent.parent.onRefreshData();
@@ -25,14 +25,14 @@ Ext.define("EnvPoolsForms.view.PhotosList", {
                 }
 
             ],
-            loadingText: "Loading Photos...",
-            emptyText: "<div class=\"photos-list-empty-text\">No photos found.</div>",
+            loadingText: "Loading Plans...",
+            emptyText: "<div class=\"plans-list-empty-text\">No Plans found.</div>",
             onItemDisclosure: true,
             itemTpl: "<div class=\"list-item-Name\">{name}</div>"
         }],
         listeners: [
             {
-                delegate: "#photosList",
+                delegate: "#plansList",
                 event: "itemtap",
                 fn: "onItemTap"
             }
@@ -40,8 +40,8 @@ Ext.define("EnvPoolsForms.view.PhotosList", {
     },
     onItemTap: function (list, index, item, record)
     {
-        console.log("Go to Photo : " + record.get('name'));
-        this.fireEvent('viewPhotoCommand', record.get('name'));
+        console.log("Go to Plan : " + record.get('name'));
+        this.fireEvent('viewPlanCommand', record.get('name'));
     },
     onRefreshData: function ()
     {

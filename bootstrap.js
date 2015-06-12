@@ -17,17 +17,27 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLResultSet": "touch/src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLResultSetRowList": "touch/src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
-  "Ext.draw.engine.SvgContext.Gradient": "touch/src/draw/engine/SvgContext.js"
+  "Ext.draw.engine.SvgContext.Gradient": "touch/src/draw/engine/SvgContext.js",
+  "Override.util.PaintMonitor": "app.js",
+  "Override.util.SizeMonitor": "app.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "EnvPoolsForms.controller.FormCtrl": [],
   "EnvPoolsForms.model.Field": [],
+  "EnvPoolsForms.model.File": [],
+  "EnvPoolsForms.model.Folder": [],
   "EnvPoolsForms.model.Form": [],
   "EnvPoolsForms.model.PullRefreshFn": [],
   "EnvPoolsForms.model.Report": [],
   "EnvPoolsForms.model.SubField": [],
+  "EnvPoolsForms.model.User": [],
   "EnvPoolsForms.store.Fields": [],
+  "EnvPoolsForms.store.Folders": [],
+  "EnvPoolsForms.store.Photos": [],
+  "EnvPoolsForms.store.Plans": [],
   "EnvPoolsForms.store.Reports": [],
+  "EnvPoolsForms.store.Users": [],
+  "EnvPoolsForms.store.Videos": [],
   "EnvPoolsForms.util.Config": [],
   "EnvPoolsForms.view.AboutTabPanel": [],
   "EnvPoolsForms.view.DateTime": [],
@@ -39,7 +49,17 @@ Ext.ClassManager.addNameAlternateMappings({
   "EnvPoolsForms.view.HomePanel": [],
   "EnvPoolsForms.view.LoginForm": [],
   "EnvPoolsForms.view.MainView": [],
+  "EnvPoolsForms.view.PDF": [],
+  "EnvPoolsForms.view.PhotoViewerPanel": [],
+  "EnvPoolsForms.view.PhotosList": [],
+  "EnvPoolsForms.view.PhotosTabPanel": [],
+  "EnvPoolsForms.view.PlanViewerPanel": [],
+  "EnvPoolsForms.view.PlansList": [],
+  "EnvPoolsForms.view.PlansTabPanel": [],
   "EnvPoolsForms.view.TabPanel": [],
+  "EnvPoolsForms.view.VideoViewerPanel": [],
+  "EnvPoolsForms.view.VideosList": [],
+  "EnvPoolsForms.view.VideosTabPanel": [],
   "Ext.AbstractComponent": [],
   "Ext.AbstractManager": [],
   "Ext.AbstractPlugin": [],
@@ -762,11 +782,17 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
-  ]
+  ],
+  "Override.util.PaintMonitor": [],
+  "Override.util.SizeMonitor": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "EnvPoolsForms.controller.FormCtrl": [],
   "EnvPoolsForms.model.Field": [],
+  "EnvPoolsForms.model.File": [],
+  "EnvPoolsForms.model.Folder": [
+    "model.folder"
+  ],
   "EnvPoolsForms.model.Form": [],
   "EnvPoolsForms.model.PullRefreshFn": [
     "plugin.pullrefreshfn",
@@ -774,8 +800,16 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "EnvPoolsForms.model.Report": [],
   "EnvPoolsForms.model.SubField": [],
+  "EnvPoolsForms.model.User": [
+    "model.user"
+  ],
   "EnvPoolsForms.store.Fields": [],
+  "EnvPoolsForms.store.Folders": [],
+  "EnvPoolsForms.store.Photos": [],
+  "EnvPoolsForms.store.Plans": [],
   "EnvPoolsForms.store.Reports": [],
+  "EnvPoolsForms.store.Users": [],
+  "EnvPoolsForms.store.Videos": [],
   "EnvPoolsForms.util.Config": [
     "widget.appConfigUtil"
   ],
@@ -809,8 +843,38 @@ Ext.ClassManager.addNameAliasMappings({
   "EnvPoolsForms.view.MainView": [
     "widget.mainview"
   ],
+  "EnvPoolsForms.view.PDF": [
+    "widget.pdfpanel"
+  ],
+  "EnvPoolsForms.view.PhotoViewerPanel": [
+    "widget.photoviewerpanel"
+  ],
+  "EnvPoolsForms.view.PhotosList": [
+    "widget.photoslist"
+  ],
+  "EnvPoolsForms.view.PhotosTabPanel": [
+    "widget.photostabpanel"
+  ],
+  "EnvPoolsForms.view.PlanViewerPanel": [
+    "widget.planviewerpanel"
+  ],
+  "EnvPoolsForms.view.PlansList": [
+    "widget.planslist"
+  ],
+  "EnvPoolsForms.view.PlansTabPanel": [
+    "widget.planstabpanel"
+  ],
   "EnvPoolsForms.view.TabPanel": [
     "widget.maintabpanel"
+  ],
+  "EnvPoolsForms.view.VideoViewerPanel": [
+    "widget.videoviewerpanel"
+  ],
+  "EnvPoolsForms.view.VideosList": [
+    "widget.videoslist"
+  ],
+  "EnvPoolsForms.view.VideosTabPanel": [
+    "widget.videostabpanel"
   ],
   "Ext.AbstractComponent": [],
   "Ext.AbstractManager": [],
@@ -1752,5 +1816,7 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
-  "Ext.viewport.WindowsPhone": []
+  "Ext.viewport.WindowsPhone": [],
+  "Override.util.PaintMonitor": [],
+  "Override.util.SizeMonitor": []
 });

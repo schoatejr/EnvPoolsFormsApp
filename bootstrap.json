@@ -4,4 +4,4 @@
  * combination of content from app.json, and all required package's package.json
  * files.  Customizations should be placed in app.json.
  */
-{"id":"b33f12ee-4fa6-4823-a89d-10a4d2c114ee","js":[{"path":"phonegap.js","remote":true},{"path":"touch/sencha-touch.js"},{"path":"bootstrap.js"},{"path":"app.js","update":"delta"}],"css":[{"path":"touch/resources/css/base.css","update":"delta"},{"path":"resources/css/app.css","update":"delta"},{"path":"resources/css/slidenav.css","update":"delta"}]}
+{"id":"b33f12ee-4fa6-4823-a89d-10a4d2c114ee","js":[{"path":"phonegap.js","remote":true},{"path":"lib/pdf/pdf.js","update":"delta"},{"path":"lib/pdf/pdf.worker.js","update":"delta"},{"path":"lib/pdf/compatibility.js","update":"delta"},{"path":"touch/sencha-touch.js"},{"path":"bootstrap.js"},{"path":"app.js","update":"delta"}],"css":[{"path":"touch/resources/css/base.css","update":"delta"},{"path":"resources/css/app.css","update":"delta"},{"path":"resources/css/slidenav.css","update":"delta"}]}

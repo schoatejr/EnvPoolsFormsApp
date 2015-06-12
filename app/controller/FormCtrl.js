@@ -15,7 +15,11 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
             mainTabPanel: 'homepanel #maintabpanel',
               reportPanel: 'reportpanel',
             photosList: 'photoslist',
-            imageViewerPanel: 'imageviewerpanel'
+            photoViewerPanel: 'photoviewerpanel',
+            videosList: 'videoslist',
+            videoViewerPanel: 'videoviewerpanel',
+            plansList: 'planslist',
+            planViewerPanel: 'planviewerpanel'
         },
         control: 
 	        {
@@ -56,10 +60,34 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
                 viewPhotoCommand: 'onViewPhotoCommand',
                 reloadFilesCommand : 'onReloadFilesCommand'
             },
-            imageViewerPanel:
+            photoViewerPanel:
             {
-                backPhotosButtonTapCommand: 'onBackPhotosButtonTapCommand'
+                backPhotosButtonTapCommand: 'onBackPhotosButtonTapCommand',
+                logoutButtonTappedCommand: 'onLogoutTappedCommand',
+                aboutButtonTapCommand: 'onAboutButtonTapCommand'
             },
+            plansList:
+            {
+                viewPlanCommand: 'onViewPlanCommand',
+                reloadFilesCommand : 'onReloadFilesCommand'
+            },
+            planViewerPanel:
+            {
+                backPlansButtonTapCommand: 'onBackPlansButtonTapCommand',
+                logoutButtonTappedCommand: 'onLogoutTappedCommand',
+                aboutButtonTapCommand: 'onAboutButtonTapCommand'
+            },
+            videosList:
+            {
+                viewVideoCommand: 'onViewVideoCommand',
+                reloadFilesCommand : 'onReloadFilesCommand'
+            },
+            videoViewerPanel:
+            {
+                backVideosButtonTapCommand: 'onBackVideosButtonTapCommand',
+                logoutButtonTappedCommand: 'onLogoutTappedCommand',
+                aboutButtonTapCommand: 'onAboutButtonTapCommand'
+            }
         }
     },
 
@@ -71,11 +99,25 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         {
            this.initializeFoldersData();
         },
-        onViewPhotoCommand: function(imageName)
+        onViewPhotoCommand: function(fileName)
         {
-            var imageviewerpanel = Ext.create('widget.imageviewerpanel');
-            imageviewerpanel.setImageSrc("http://www.choateinc.com/Photos/" + imageName);
-            Ext.Viewport.animateActiveItem(imageviewerpanel, this.slideLeftTransition);
+            var viewerpanel = Ext.create('widget.photoviewerpanel');
+            viewerpanel.setFileSrc("http://www.choateinc.com/Photos/" + fileName);
+            Ext.Viewport.animateActiveItem(viewerpanel, this.slideLeftTransition);
+
+        },
+        onViewVideoCommand: function(fileName)
+        {
+            var viewerpanel = Ext.create('widget.videoviewerpanel');
+            viewerpanel.setFileSrc(["http://www.choateinc.com/Videos/" + fileName]);
+            Ext.Viewport.animateActiveItem(viewerpanel, this.slideLeftTransition);
+
+        },
+        onViewPlanCommand: function(fileName)
+        {
+            var viewerpanel = Ext.create('widget.planviewerpanel');
+            viewerpanel.setFileSrc("http://www.choateinc.com/Plans/" + fileName);
+            Ext.Viewport.animateActiveItem(viewerpanel, this.slideLeftTransition);
 
         },
     onAboutButtonTapCommand: function ()
@@ -88,10 +130,18 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
         Ext.Msg.alert("", msg);
     },
 
-    onBackPhotosButtonTapCommand: function ()
-    {
-        this.gotoFormsTab(1);
-    },
+        onBackPhotosButtonTapCommand: function ()
+        {
+            this.gotoFormsTab(1);
+        },
+        onBackPlansButtonTapCommand: function ()
+        {
+            this.gotoFormsTab(2);
+        },
+        onBackVideosButtonTapCommand: function ()
+        {
+            this.gotoFormsTab(3);
+        },
     onBackReportButtonTapCommand: function (curForm, formEditor, record)
     {
         //console.debug("Event : onBackReportButtonTapCommand");
@@ -241,8 +291,8 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
     {
         var me = this;
         var fieldsUrl = record.get('LinkFields');
-        var formName = record.get('Name');
-        //console.debug("Ready to activate form : " + formName);        
+        var formName = record.get('Name').split(")")[1].trim();
+        //console.debug("Ready to activate form : " + formName);
         //console.debug("Ready to call fields link : " + fieldsUrl);
 
         Ext.Ajax.request
@@ -350,7 +400,7 @@ Ext.define('EnvPoolsForms.controller.FormCtrl', {
           var newRecord = userStore.getAt(0);
           var emailVal = newRecord.email;
           var passwordVal = newRecord.password;
-          console.log("The email is [" + newRecord.email + "] the password is [" + newRecord.password + "]");
+          //console.log("The email is [" + newRecord.email + "] the password is [" + newRecord.password + "]");
       }
 
     if (email.length === 0 || password.length === 0) {

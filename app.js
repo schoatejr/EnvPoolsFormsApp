@@ -1,14 +1,26 @@
-/*
-    This file is generated and updated by Sencha Cmd. You can edit this file as
-    needed for your application, but these edits will have to be merged by
-    Sencha Cmd when it performs code generation tasks such as generating new
-    models, controllers or views and when running "sencha app upgrade".
+Ext.define('Override.util.PaintMonitor', {
+    override : 'Ext.util.PaintMonitor',
 
-    Ideally changes to this file would be limited and most work would be done
-    in other places (such as Controllers). If Sencha Cmd cannot merge your
-    changes and its generated code, it will produce a "merge conflict" that you
-    will need to resolve manually.
-*/
+    constructor : function(config) {
+        return new Ext.util.paintmonitor.CssAnimation(config);
+    }
+});
+
+Ext.define('Override.util.SizeMonitor', {
+    override : 'Ext.util.SizeMonitor',
+
+    constructor : function(config) {
+        var namespace = Ext.util.sizemonitor;
+
+        if (Ext.browser.is.Firefox) {
+            return new namespace.OverflowChange(config);
+        } else if (Ext.browser.is.WebKit || Ext.browser.is.IE11) {
+            return new namespace.Scroll(config);
+        } else {
+            return new namespace.Default(config);
+        }
+    }
+});
 
 Ext.application({
     name: 'EnvPoolsForms',
@@ -32,7 +44,14 @@ Ext.application({
         'DateTimePicker',
         'PhotosTabPanel',
         'PhotosList',
-        'ImageViewerPanel'
+        'PhotoViewerPanel',
+        'PlansTabPanel',
+        'PlansList',
+        'PlanViewerPanel',
+        'VideosTabPanel',
+        'VideosList',
+        'VideoViewerPanel',
+        'PDF'
     ],
     controllers: 
     [
@@ -46,7 +65,7 @@ Ext.application({
         'Users',
         'Photos',
         'Videos',
-        'Specs'
+        'Plans'
     ],
 
     models: 
@@ -80,6 +99,32 @@ Ext.application({
         '1536x2008': 'resources/startup/1536x2008.png',
         '1496x2048': 'resources/startup/1496x2048.png'
     },
+    launch3: function() {
+
+        Ext.Viewport.add({
+            xtype     : 'pdfpanel',
+            fullscreen: true,
+            layout    : 'fit',
+            src       : 'http://www.choateinc.com/Plans/PrinceCatalogue.pdf', // URL to the PDF - Same Domain or Server with CORS Support
+            style     : {
+                backgroundColor: '#333'
+            }
+        });
+    },
+
+    launch2: function() {
+
+        Ext.Viewport.add({
+            xtype     : 'panel',
+            fullscreen: true,
+            layout    : 'fit',
+            html       : '<embed type="application/pdf" width="100%" height="800px" src="http://docs.google.com/viewer?url=http%3A%2F%2Fresearch.google.com%2Farchive%2Fbigtable-osdi06.pdf" />', // URL to the PDF - Same Domain or Server with CORS Support
+            style     : {
+                backgroundColor: '#333'
+            }
+        });
+    },
+
 
     launch: function() {
         // Destroy the #appLoadingIndicator element

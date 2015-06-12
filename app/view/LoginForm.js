@@ -47,7 +47,7 @@ Ext.define('EnvPoolsForms.view.LoginForm', {
                         {
                             xtype: 'checkboxfield',
                             itemId: 'saveCredentialsField',
-                            label: 'Remember Credentials',
+                            label: 'Remember Me',
                             labelWidth: '40%',
                             name: 'credentials',
                             required: false,

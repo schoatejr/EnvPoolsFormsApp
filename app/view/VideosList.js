@@ -1,8 +1,8 @@
-Ext.define("EnvPoolsForms.view.PhotosList", {
+Ext.define("EnvPoolsForms.view.VideosList", {
     extend: "Ext.Container",
     requires:["Ext.dataview.List","Ext.plugin.PullRefresh"],
-    xtype: 'photoslist',
-    alias: 'widget.photoslist',
+    xtype: 'videoslist',
+    alias: 'widget.videoslist',
 
 
     config: {
@@ -11,13 +11,13 @@ Ext.define("EnvPoolsForms.view.PhotosList", {
         },
         items: [{
             xtype: "list",
-            store: "Photos",
-            itemId:"photosList",
+            store: "Videos",
+            itemId:"videosList",
             plugins: [
                 {
                     xclass: 'plugin.pullrefreshfn',
-                    itemId: "photoslistpulldown",
-                    pullText: 'Pull down for more Reports...',
+                    itemId: "videoslistpulldown",
+                    pullText: 'Pull down for more Videos...',
                     refreshFn: function()
                     {
                         this.parent.parent.onRefreshData();
@@ -25,14 +25,14 @@ Ext.define("EnvPoolsForms.view.PhotosList", {
                 }
 
             ],
-            loadingText: "Loading Photos...",
-            emptyText: "<div class=\"photos-list-empty-text\">No photos found.</div>",
+            loadingText: "Loading Videos...",
+            emptyText: "<div class=\"videos-list-empty-text\">No Videos found.</div>",
             onItemDisclosure: true,
             itemTpl: "<div class=\"list-item-Name\">{name}</div>"
         }],
         listeners: [
             {
-                delegate: "#photosList",
+                delegate: "#videosList",
                 event: "itemtap",
                 fn: "onItemTap"
             }
@@ -40,8 +40,8 @@ Ext.define("EnvPoolsForms.view.PhotosList", {
     },
     onItemTap: function (list, index, item, record)
     {
-        console.log("Go to Photo : " + record.get('name'));
-        this.fireEvent('viewPhotoCommand', record.get('name'));
+        console.log("Go to Video : " + record.get('name'));
+        this.fireEvent('viewVideoCommand', record.get('name'));
     },
     onRefreshData: function ()
     {

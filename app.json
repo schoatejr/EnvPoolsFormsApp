@@ -44,6 +44,18 @@
 			"remote": true
 		},
         {
+            "path": "lib/pdf/pdf.js",
+            "update": "delta"
+        },
+      {
+        "path": "lib/pdf/pdf.worker.js",
+        "update": "delta"
+      },
+      {
+        "path": "lib/pdf/compatibility.js",
+        "update": "delta"
+      },
+        {
             "path": "touch/sencha-touch.js",
             "x-bootstrap": true
         },

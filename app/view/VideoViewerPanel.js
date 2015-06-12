@@ -1,12 +1,12 @@
-Ext.define('EnvPoolsForms.view.ImageViewerPanel', {
+Ext.define('EnvPoolsForms.view.VideoViewerPanel', {
     extend: 'Ext.Panel',
-    alias: 'widget.imageviewerpanel',
-    xtype: 'imageviewerpanel',
+    alias: 'widget.videoviewerpanel',
+    xtype: 'videoviewerpanel',
 
     requires: [
                'Ext.TitleBar',
                'Ext.Toolbar',
-               'Ext.Img'
+               'Ext.Video'
     ],
 
     config: {
@@ -42,9 +42,9 @@ Ext.define('EnvPoolsForms.view.ImageViewerPanel', {
                 ]
             },
             {
-                xtype: 'img',
-                itemId:"imageItem",
-                src: 'http://www.choateinc.com/Photos/image1.jpg'
+                xtype: 'video',
+                itemId:"fileItem",
+                loop: true
             }
         ],
         listeners: [
@@ -66,8 +66,8 @@ Ext.define('EnvPoolsForms.view.ImageViewerPanel', {
            ]
     },
     onBackButtonTap: function () {
-        console.log("onBackButtonTap");
-        this.fireEvent("backPhotosButtonTapCommand", this);
+        console.log("backVideosButtonTapCommand");
+        this.fireEvent("backVideosButtonTapCommand", this);
     },
     onAboutButtonTap: function () {
         console.log("onAboutButtonTap");
@@ -75,12 +75,13 @@ Ext.define('EnvPoolsForms.view.ImageViewerPanel', {
     },    
     onLogoutTapped: function (evt, options) {
         console.log("Logout button tapped");
-        this.fireEvent('logoutTappedCommand', this);
+        this.fireEvent('logoutButtonTappedCommand', this);
     },
-    setImageSrc: function (imgSrc)
+    setFileSrc: function (fileSrc)
     {
-        var image = this.down('#imageItem');
-        image.setSrc(imgSrc);
+        var file = this.down('#fileItem');
+        file.setUrl(fileSrc);
+        file.play();
     }
 
 });
