@@ -32,7 +32,7 @@ Ext.define("EnvPoolsForms.view.FormsList", {
             loadingText: "Loading Forms...",
             emptyText: "<div class=\"forms-list-empty-text\">No forms found.</div>",
             onItemDisclosure: true,
-            itemTpl: "<div class=\"list-item-Name\">{Name}</div>"
+            itemTpl: "<div class=\"listx-item-Name\">{Name}</div>"
         }],
         listeners: [
             {
